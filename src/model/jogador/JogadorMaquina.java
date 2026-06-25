@@ -16,7 +16,7 @@ public class JogadorMaquina extends Jogador {
     }
 
     @Override
-    public Carta escolherCarta() {
+    public Carta escolherCarta(int indice) {
         int index = random.nextInt(mao.size());
         return mao.remove(index);
     }

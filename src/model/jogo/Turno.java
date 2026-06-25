@@ -2,6 +2,7 @@ package model.jogo;
 
 import model.carta.Carta;
 import model.jogador.Jogador;
+import model.jogador.JogadorHumano;
 import view.game.ViewTurno;
 
 /**
@@ -19,10 +20,10 @@ public class Turno {
     }
     
     public Jogador jogar(){
-        Carta carta1 = primeiro.escolherCarta();
-        ViewTurno.mostrarJogada(primeiro, carta1);
+        Carta carta1 = jogarCarta(primeiro);    
+        ViewTurno.mostrarJogada(primeiro, carta1);        
         
-        Carta carta2 = segundo.escolherCarta();
+        Carta carta2 = jogarCarta(segundo);
         ViewTurno.mostrarJogada(segundo, carta2);
         
         if (carta1.getValor() > carta2.getValor()) {
@@ -34,5 +35,15 @@ public class Turno {
         }
 
         return primeiro;
-    }    
+    }
+    
+    private Carta jogarCarta(Jogador jogador) {
+
+        if (jogador instanceof JogadorHumano) {
+            int indice = ViewTurno.escolherCarta(jogador);
+            return jogador.escolherCarta(indice);
+        }
+
+        return jogador.escolherCarta(0);
+    }
 }

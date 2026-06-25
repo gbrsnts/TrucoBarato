@@ -1,3 +1,4 @@
+import controller.MenuController;
 import view.Menu;
 
 /**
@@ -8,7 +9,8 @@ public class Main {
 
     public static void main(String[] args) {
         // Instancia e inicia o menu
-        Menu menu = new Menu();
+        MenuController controller = new MenuController();
+        Menu menu = new Menu(controller);
         menu.iniciar();
     }
 }

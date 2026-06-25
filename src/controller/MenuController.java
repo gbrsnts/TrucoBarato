@@ -31,7 +31,6 @@ public class MenuController {
     Interação com DAO do histórico.
     */    
     public Collection<RegistroPartida> listarHistorico(){
-        historicoDAO.carregar();
         return historicoDAO.listarHistorico();
     }
     

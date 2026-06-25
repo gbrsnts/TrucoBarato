@@ -20,7 +20,7 @@ public class JogoController {
 
     public void iniciarPartida(RegistroJogador perfil){
         // Instanciar o jogador humano e máquina para serem utilizados na partida.
-        JogadorHumano humano = new JogadorHumano(perfil.getId(), perfil.getName());
+        JogadorHumano humano = new JogadorHumano(perfil);
         JogadorMaquina maquina = new JogadorMaquina("Stuart");
         
         // Instanciar a partida que irá iniciar.
@@ -28,7 +28,7 @@ public class JogoController {
         
         String placar = partida.iniciarPartida();
         
-        historicoDAO.adicionar(humano.getId(), placar);
+        historicoDAO.adicionar(perfil, placar);
     }
     
 }

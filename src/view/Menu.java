@@ -7,6 +7,7 @@ import java.util.Collection;
 import model.DAO.RegistroJogador;
 import model.DAO.RegistroPartida;
 import java.time.format.DateTimeFormatter;
+import view.util.Input;
 
 /**
  *
@@ -14,8 +15,11 @@ import java.time.format.DateTimeFormatter;
  */
 public class Menu {    
     private Scanner scanner = new Scanner(System.in);
-    //Instancia o controller do menu
-    private MenuController controller = new MenuController();
+    private MenuController controller;
+    
+    public Menu(MenuController controller){
+        this.controller = controller;
+    }
     
     public void iniciar(){
         while(true){
@@ -74,45 +78,6 @@ public class Menu {
         System.out.println("Boa sorte e divirta-se!\n");
     }
     
-    public Integer lerIntSeguro(String mensagem){
-        while (true) {
-            System.out.println(mensagem);
-            String entrada = scanner.nextLine().trim();
-            
-            if(entrada.isEmpty()) {
-                System.out.print("Entrada vazia! Digite um numero.");
-                continue;
-            }
-            
-            try{
-                return Integer.parseInt(entrada);
-            } catch(NumberFormatException e){
-                System.out.println("Entrada invalida! Digite um numero.");
-            }
-        }
-    }
-    
-    public char lerCharSeguro(String mensagem){
-        while(true){
-            System.out.println(mensagem);
-            
-            String entrada = scanner.nextLine().trim();
-            
-            if(entrada.isEmpty()){
-                System.out.println("Entrada vazia! Digite 'S' ou 'N'.");
-                continue;
-            }
-            
-            char c = Character.toLowerCase(entrada.charAt(0));
-            
-            if (c == 's' || c == 'n'){
-                return c;
-            }
-            
-            System.out.println("Entrada inválida! Digite apenas 'S' ou 'N'.");
-        }
-    }
-    
     public void exibirHistorico(){
         Collection<RegistroPartida> historico = controller.listarHistorico();
         
@@ -155,7 +120,7 @@ public class Menu {
     public void deletarPerfil(){
         if(!listarPerfis()) return;
         
-        int id = lerIntSeguro("Digite o ID para deletar: ");
+        int id = Input.lerInt("Digite o ID para deletar: ");
         
         RegistroJogador perfil = controller.buscarJogadorId(id);
         
@@ -164,9 +129,11 @@ public class Menu {
             return;
         }
         
-        char confirma = lerCharSeguro(
+        
+        char confirma = Input.lerChar(
                 "Deseja realmente deletar o perfil "
-                + perfil.getName() + "? [S/N] ");
+                + perfil.getName() 
+                + " e seu historico? [S/N] ");
         
         if (confirma != 's') {
             System.out.println("Operacao cancelada.");
@@ -180,7 +147,7 @@ public class Menu {
     public void selecionarPerfil(){
         if(!listarPerfis()) return;
         
-        int id = lerIntSeguro("Digite o ID para selecionar: ");
+        int id = Input.lerInt("Digite o ID para selecionar: ");
         
         if (controller.selecionarPerfil(id)) {
             System.out.println("Perfil " + controller.buscarNome() 

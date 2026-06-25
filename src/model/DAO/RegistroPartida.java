@@ -16,9 +16,9 @@ public class RegistroPartida implements Serializable{
     private LocalDateTime playedAt;
     
     
-    public RegistroPartida(int jogadorId, String placar){
+    public RegistroPartida(RegistroJogador perfil, String placar){
         this.id = proximoId++;
-        this.jogadorId = jogadorId;
+        this.jogadorId = perfil.getId();
         this.placar = placar;
         this.playedAt = LocalDateTime.now();
     }

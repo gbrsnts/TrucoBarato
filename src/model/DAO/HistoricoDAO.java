@@ -59,8 +59,10 @@ public class HistoricoDAO {
     }
 
     // CREATE
-    public void adicionar(int jogadorId, String placar) {
-        RegistroPartida registro = new RegistroPartida(jogadorId, placar);
+    public void adicionar(RegistroJogador perfil, String placar) {
+        RegistroPartida registro = 
+                new RegistroPartida(perfil, placar);
+        
         historico.put(registro.getId(), registro);
         salvar();
     }

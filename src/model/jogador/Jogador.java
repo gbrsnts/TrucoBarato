@@ -81,6 +81,6 @@ public abstract class Jogador {
     /**
      * Método abstrato para adequar a escolha da carta para cada classe
      */
-    public abstract Carta escolherCarta();
+    public abstract Carta escolherCarta(int indice);
     
 }

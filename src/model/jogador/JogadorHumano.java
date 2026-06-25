@@ -1,9 +1,9 @@
 package model.jogador;
 
 import java.util.InputMismatchException;
+import model.DAO.RegistroJogador;
 import model.carta.Carta;
 import model.jogador.Jogador;
-import java.util.Scanner;
 
 /**
  * Classe para o jogador humano que herda atributos e métodos de jogador
@@ -11,47 +11,25 @@ import java.util.Scanner;
  * @author gbrsnts
  */
 public class JogadorHumano extends Jogador {    
-    private Scanner scanner = new Scanner(System.in);
-    private int id;
+    private RegistroJogador registro;
     
-    public JogadorHumano(int id, String nome) {
-        super(nome);
-        this.id = id;
+    public JogadorHumano(RegistroJogador registro) {
+        super(registro.getName());
+        this.registro = registro;
+    }
+    
+    public RegistroJogador getRegistro(){
+        return registro;
     }
     
     /**
-     * A implementação deste modo difere do jogadorMaquina, pois abre opção
-     * para que o jogador escolha a carta que ache agradável, após escolher
-     * remove a carta da mão do jogador.
+     * A implementação deste modo difere do jogadorMaquina, 
+     * pois o jogadorHumano precisa receber um indice para remover a carta
+     * da mão do jogador.
      */
     
-    public int getId() {
-       return id;
-    }
-    
     @Override
-    public Carta escolherCarta() {    
-        while(true){
-            for(int i = 0; i < mao.size(); i++){
-                System.out.println(i+1 + " - " + mao.get(i));
-            }
-            
-            System.out.print("Escolha uma carta: ");
-            
-            try{
-                int escolha = scanner.nextInt();
-                
-                if (escolha >= 1 && escolha <= mao.size()){
-                    return mao.remove(escolha-1);
-                }   
-            
-                System.out.println("Opcao invalida!");
-            } catch (Exception e){
-                System.out.println("Digite apenas numeros!");
-                scanner.nextLine();
-            }
-            
-        }        
+    public Carta escolherCarta(int indice) {    
+        return mao.remove(indice);
     }
-    
 }
