@@ -22,7 +22,7 @@ public class Partida {
         this.jogadorMaquina = jogadorMaquina;
     }
     
-    public void iniciarPartida(){
+    public String iniciarPartida(){
         /** Executa rodadas até que alguém atinja 5 pontos, caso
         alguém alcance 5 pontos, a partida termina e anuncia o vencedor. */
         while (jogadorHumano.getRoundPoints() < PONTOS_PARA_VENCER &&
@@ -57,16 +57,14 @@ public class Partida {
         }
         Jogador vencedor = anunciarVencedor();
         
-        HistoricoDAO dao = new HistoricoDAO();
-        
         String placar =
                 jogadorHumano.getRoundPoints()
                 + " x "
                 + jogadorMaquina.getRoundPoints();
         
-        dao.adicionar(jogadorHumano.getId(), placar);
-        
         ViewPartida.fim(vencedor, jogadorHumano);
+        
+        return placar;
     }
        
     public Jogador anunciarVencedor() {

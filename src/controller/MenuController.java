@@ -12,23 +12,24 @@ import java.util.Collection;
  * @author gbrsnts
  */
 public class MenuController {
-    private HistoricoDAO historicoDAO = new HistoricoDAO();
-    private JogadorDAO jogadorDAO = new JogadorDAO();
+    private HistoricoDAO historicoDAO;
+    private JogadorDAO jogadorDAO;
+    private JogoController jogoController;
+    
+   public MenuController() {
+       historicoDAO = new HistoricoDAO();
+       jogadorDAO = new JogadorDAO();
+       jogoController = new JogoController(historicoDAO);
+   }
     
     public void iniciarPartida() {
         RegistroJogador perfil = jogadorDAO.getPerfilSelecionado();
-        
-        JogoController jogoController = new JogoController();
         jogoController.iniciarPartida(perfil);
     }
     
     /*
     Interação com DAO do histórico.
-    */
-    public boolean limparHistorico(int jogadorId) {
-        return historicoDAO.deletarById(jogadorId);
-    }
-    
+    */    
     public Collection<RegistroPartida> listarHistorico(){
         historicoDAO.carregar();
         return historicoDAO.listarHistorico();

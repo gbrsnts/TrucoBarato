@@ -4,7 +4,6 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 import controller.MenuController;
 import java.util.Collection;
-import java.util.List;
 import model.DAO.RegistroJogador;
 import model.DAO.RegistroPartida;
 import java.time.format.DateTimeFormatter;
@@ -100,7 +99,7 @@ public class Menu {
             String entrada = scanner.nextLine().trim();
             
             if(entrada.isEmpty()){
-                System.out.println("Entrada vazia! Digite 'S' ou 'N.");
+                System.out.println("Entrada vazia! Digite 'S' ou 'N'.");
                 continue;
             }
             
@@ -158,18 +157,24 @@ public class Menu {
         
         int id = lerIntSeguro("Digite o ID para deletar: ");
         
-        char confirma = lerCharSeguro("Voce realmente deseja deletar o perfil e seu respectivo historico? [S/N]: ");
+        RegistroJogador perfil = controller.buscarJogadorId(id);
         
-        if (confirma != 's' && confirma != 'S') {
+        if(perfil == null){
+            System.out.println("ID invalido!");
+            return;
+        }
+        
+        char confirma = lerCharSeguro(
+                "Deseja realmente deletar o perfil "
+                + perfil.getName() + "? [S/N] ");
+        
+        if (confirma != 's') {
             System.out.println("Operacao cancelada.");
             return;
         }
         
-        if (controller.deletarPerfil(id)) {
-                System.out.println("Perfil deletado!");
-        } else {
-                System.out.println("ID invalido ou perfil nao existe!");
-        }
+        controller.deletarPerfil(id);
+        System.out.println("Perfil deletado!");
     }
     
     public void selecionarPerfil(){

@@ -1,5 +1,6 @@
 package controller;
 
+import model.DAO.HistoricoDAO;
 import model.DAO.RegistroJogador;
 import model.jogador.JogadorHumano;
 import model.jogador.JogadorMaquina;
@@ -11,6 +12,11 @@ import view.Tela;
  * @author gbrsnts
  */
 public class JogoController {
+    private HistoricoDAO historicoDAO;
+    
+    public JogoController(HistoricoDAO historicoDAO){
+        this.historicoDAO = historicoDAO;
+    }
 
     public void iniciarPartida(RegistroJogador perfil){
         // Instanciar o jogador humano e máquina para serem utilizados na partida.
@@ -19,7 +25,10 @@ public class JogoController {
         
         // Instanciar a partida que irá iniciar.
         Partida partida = new Partida(humano, maquina);
-        partida.iniciarPartida();
+        
+        String placar = partida.iniciarPartida();
+        
+        historicoDAO.adicionar(humano.getId(), placar);
     }
     
 }

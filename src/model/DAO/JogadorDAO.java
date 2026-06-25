@@ -81,7 +81,13 @@ public class JogadorDAO implements Serializable {
     // DELETE
     public boolean deletarPerfil(int id) {
         RegistroJogador removido = jogadores.remove(id);
+        
+        if(id == perfilSelecionadoId){
+            perfilSelecionadoId = -1;
+        }
+        
         salvar();
+        
         return removido != null;
     }
 
@@ -97,9 +103,5 @@ public class JogadorDAO implements Serializable {
     
     public RegistroJogador getPerfilSelecionado(){
         return jogadores.get(perfilSelecionadoId);
-    }
-    
-    public boolean possuiPerfilCriado(){
-        return !jogadores.isEmpty();
     }
 }
