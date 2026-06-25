@@ -1,0 +1,36 @@
+# ===== Build / compilados =====
+/build/
+/dist/
+/out/
+/target/
+
+# Classes compiladas
+*.class
+
+# ===== NetBeans =====
+/nbproject/private/
+/nbproject/build-impl.xml
+/nbproject/private/private.properties
+/build/classes/.netbeans_automatic_build
+/build/classes/.netbeans_update_resources
+
+# ===== Logs =====
+*.log
+
+# ===== Sistema operacional =====
+.DS_Store
+Thumbs.db
+
+# ===== IDEs (geral) =====
+.vscode/
+.idea/
+
+# ===== Arquivos temporários =====
+*.tmp
+*.swp
+
+# === Orientação ===
+orientacao
+
+# === Registros ===
+.registros/*
