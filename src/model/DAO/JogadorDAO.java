@@ -5,7 +5,13 @@ import java.util.Collection;
 import java.util.HashMap;
 
 /**
- *
+ *  Classe responsável pelo gerencimento dos perfis de jogadores.
+ * 
+ * A classse implementa persistência de dados utilizando serialization em arquivo.
+ * Permitindo criar, consultar, selecionar e remover perfis de jogadores.
+ * 
+ * Além de gerenciar registro, a classe faz controle do perfil selecionado.
+ * 
  * @author gbrsnts
  */
 
@@ -15,13 +21,16 @@ public class JogadorDAO implements Serializable {
     private HashMap<Integer, RegistroJogador> jogadores;
     private int perfilSelecionadoId = -1;
     
+    // Cria uma instância de jogador e carrega os dados do arquivo.
     public JogadorDAO(){
         carregar();
     }
     
+    // Carrega os dados dos jogador a partir do arquivo de persistência.
     private void carregar(){
         File arquivo = new File(ARQUIVO);
         
+        // Valida se o arquivo existe, caso contrário inicializa um HashMap vazio.
         if(!arquivo.exists()){
             jogadores = new HashMap<>();
             return;
@@ -30,10 +39,12 @@ public class JogadorDAO implements Serializable {
             new ObjectInputStream(
                 new FileInputStream(arquivo))){
             
+            // Recupera o HashMap serializado
             jogadores = (HashMap<Integer, RegistroJogador>) in.readObject();
             
             int maiorId = 0;
             
+            // Procura o maior ID já utilizado
             for(RegistroJogador perfil : jogadores.values()){
                 if(perfil.getId() > maiorId){
                     maiorId = perfil.getId();
@@ -42,65 +53,82 @@ public class JogadorDAO implements Serializable {
             
             RegistroJogador.atualizarId(maiorId + 1);
         } catch(Exception e){
+            // Em caso de falha, cria um HashMap vazio
             jogadores = new HashMap<>();
         }
     }
 
+    // Salva todos os jogadores em arquivo utilizando serialização.
     public void salvar(){
        try(ObjectOutputStream out = 
-            new ObjectOutputStream(
-                new FileOutputStream(ARQUIVO))){
+            new ObjectOutputStream(new FileOutputStream(ARQUIVO))){
            
+            // Serializa e grava o HashMap completo.
             out.writeObject(jogadores);
+            
        } catch(IOException e){
            System.out.println("Erro ao salvar jogadores.");
        }
     }
     
-    // CREATE
+    // CREATE - Cria um perfil de jogador.
     public RegistroJogador criarRegistro(String nome){
+        
+        // Cria um novo perfil.
         RegistroJogador registro = new RegistroJogador(nome);
         
+        // Armazena utilizando o ID como chave do HashMap.
         jogadores.put(registro.getId(), registro);
         
+        // Salva a alteração no arquivo.
         salvar();
         
+        // Retorna o jogador criado.
         return registro;
     }
     
-    // READ ALL
+    // READ - Retorna todos os perfis de jogadores já cadastrados.
     public Collection<RegistroJogador> listarPerfis(){
         return jogadores.values();
     }
 
-    // READ
+    // READ - Busca um perfil pelo seu ID(Chave).
     public RegistroJogador buscarPerfil(int id){
         return jogadores.get(id);
     }
 
-    // DELETE
+    // DELETE - Remove um perfil do sistema.
     public boolean deletarPerfil(int id) {
+        
+        // Remove o jgoador.
         RegistroJogador removido = jogadores.remove(id);
         
+        // Se o perfil removido era o selecionado
+        // Também remove a seleção atual
         if(id == perfilSelecionadoId){
             perfilSelecionadoId = -1;
         }
         
+        // Salva as alterações
         salvar();
         
+        // Verifica se houve remoção
         return removido != null;
     }
 
-    // SELECT PROFILE
+    // SELECT - Define qual perfil será utilizado.
     public boolean selecionarPerfil(int id){
+        // Verifica se o jogador existe
         if (!jogadores.containsKey(id))
             return false;
         
+        // Define o perfil ativo.
         perfilSelecionadoId = id;
         
         return true;
     }
     
+    // Informa o perfil atual selecionado.
     public RegistroJogador getPerfilSelecionado(){
         return jogadores.get(perfilSelecionadoId);
     }
