@@ -29,10 +29,14 @@ public enum ValorCarta {
         this.simbolo = simbolo;
     }
     
+    /* Retorna o valor número da carta.
+    Utilizado para determinar qual carta irá vencer em comparação. */
     public int getValor(){
         return valor;
     }
     
+    /* Retorna o símbolo da carta.
+    Utilizado para exibição para o usuário. */
     public String getSimbolo(){
         return simbolo;
     }

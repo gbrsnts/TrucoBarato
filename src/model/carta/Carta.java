@@ -1,4 +1,3 @@
-
 package model.carta;
 
 import java.util.Objects;
