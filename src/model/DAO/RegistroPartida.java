@@ -60,8 +60,7 @@ public class RegistroPartida implements Serializable{
     }
     
     /* Retorna o ID, placar e data/hora da partida.
-     Utilizando quando for listar o histórico de partida.
-     */
+     Utilizando quando for listar o histórico de partida. */
     @Override
     public String toString(){
         return "[" + id + "] JogadorID=" + jogadorId +

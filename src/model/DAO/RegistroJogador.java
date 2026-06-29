@@ -50,8 +50,7 @@ public class RegistroJogador implements Serializable{
     }
 
     /* Retorna o ID e nome de cada jogador.
-     Utilizando quando for exibido em listas ou menus. 
-     */
+     Utilizando quando for exibido em listas ou menus. */
     @Override
     public String toString() {
         return "[" + id + "] " + name;
