@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 public class RegistroJogador implements Serializable{
     
     /* Atributo responsável  por controlar o próximo ID disponível.
-    Por ser compartilhado entre todos os objetados da classe é static, garantindo
-    que cada jogador recebe um valor único.
+    Por ser compartilhado entre todos os objetos da classe é static, garantindo
+    que cada jogador receba um valor único.
     */
     private static int proximoId = 1;
     
