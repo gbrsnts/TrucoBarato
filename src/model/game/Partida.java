@@ -1,4 +1,4 @@
-package model.jogo;
+package model.game;
 
 import model.DAO.HistoricoDAO;
 import model.jogador.Jogador;

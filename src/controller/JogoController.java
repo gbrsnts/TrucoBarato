@@ -4,7 +4,7 @@ import model.DAO.HistoricoDAO;
 import model.DAO.RegistroJogador;
 import model.jogador.JogadorHumano;
 import model.jogador.JogadorMaquina;
-import model.jogo.Partida;
+import model.game.Partida;
 import view.Tela;
 
 /**

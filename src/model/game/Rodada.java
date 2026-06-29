@@ -1,8 +1,8 @@
-package model.jogo;
+package model.game;
 
 import model.carta.Baralho;
 import model.jogador.Jogador;
-import model.jogo.Turno;
+import model.game.Turno;
 import view.Tela;
 import view.game.ViewRodada;
 

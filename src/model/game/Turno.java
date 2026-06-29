@@ -1,4 +1,4 @@
-package model.jogo;
+package model.game;
 
 import model.carta.Carta;
 import model.jogador.Jogador;
