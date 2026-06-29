@@ -70,4 +70,11 @@ public class Input {
         }
     }
     
+    public static void linha() {
+        System.out.println("=================================");
+    }
+
+    public static void separador() {
+        System.out.println("---------------------------------");
+    }
 }

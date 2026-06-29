@@ -5,7 +5,6 @@ import model.DAO.RegistroJogador;
 import model.jogador.JogadorHumano;
 import model.jogador.JogadorMaquina;
 import model.game.Partida;
-import view.Tela;
 
 /**
  *

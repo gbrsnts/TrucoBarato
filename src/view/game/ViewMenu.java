@@ -1,4 +1,4 @@
-package view;
+package view.game;
 
 import controller.MenuController;
 import java.util.Collection;
@@ -11,10 +11,10 @@ import view.util.Input;
  *
  * @author gbrsnts 
  */
-public class Menu {    
+public class ViewMenu {    
     private MenuController controller;
     
-    public Menu(MenuController controller){
+    public ViewMenu(MenuController controller){
         this.controller = controller;
     }
     
@@ -165,7 +165,7 @@ public class Menu {
             return;
         }
         
-        Tela.linha();
+        Input.linha();
         System.out.println("Vamos comecar!");
        
         // Inicia a partida a partir de controller.

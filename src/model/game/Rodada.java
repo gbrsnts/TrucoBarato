@@ -3,8 +3,8 @@ package model.game;
 import model.carta.Baralho;
 import model.jogador.Jogador;
 import model.game.Turno;
-import view.Tela;
 import view.game.ViewRodada;
+import view.util.Input;
 
 /**
  * Classe responsável pela classe e lógica de cada rodada
@@ -40,7 +40,7 @@ public class Rodada {
                 ViewRodada.ganhadorTurno(jogador2);
                 jogador2.ganhouTurno();
             }
-            Tela.separador();
+            Input.separador();
             if(vencedorTurno == jogador2) {
                 Jogador temp = jogador1;
                 jogador1 = jogador2;

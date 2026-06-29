@@ -1,5 +1,5 @@
 import controller.MenuController;
-import view.Menu;
+import view.game.ViewMenu;
 
 /**
  * Classe principal para iniciar a aplicação.
@@ -12,8 +12,8 @@ public class Main {
         // Instancia o controlador principal do sistema
         MenuController controller = new MenuController();
         
-        // Instancia a interface de menu
-        Menu menu = new Menu(controller);
+        // Instancia a View de Menu
+        ViewMenu menu = new ViewMenu(controller);
         
         // Inicia a execução da aplicação
         menu.iniciar();

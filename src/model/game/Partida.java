@@ -4,7 +4,6 @@ import model.DAO.HistoricoDAO;
 import model.jogador.Jogador;
 import model.jogador.JogadorHumano;
 import model.jogador.JogadorMaquina;
-import view.Tela;
 import view.game.ViewPartida;
 
 /**
@@ -43,14 +42,14 @@ public class Partida {
                 segundo = jogadorHumano;
             }
             
-            Tela.cabecalho(numeroRodada, jogadorHumano, jogadorMaquina);
+            ViewPartida.cabecalho(numeroRodada, jogadorHumano, jogadorMaquina);
             
             // Instancia uma rodada a cada loop
             Rodada rodada = new Rodada(primeiro, segundo);
             
             Jogador vencedorRodada = rodada.iniciarRodada();
             vencedorRodada.ganhouRodada();
-            Tela.ganhadorRodada(vencedorRodada);
+            ViewPartida.ganhadorRodada(vencedorRodada);
             
             numeroRodada++;
             
