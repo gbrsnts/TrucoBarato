@@ -17,10 +17,13 @@ import view.util.Input;
 public class ViewMenu {    
     private MenuController controller;
     
+    
+    // Inicializa a view associando-a ao controller recebido.
     public ViewMenu(MenuController controller){
         this.controller = controller;
     }
     
+    // Exibe o menu principal e encaminha as opções aos métodos correspondentes.
     public void iniciar(){
         while(true){
             System.out.println("=== Bem-vindo(a) ao TrucoBarato! ===");
@@ -61,7 +64,8 @@ public class ViewMenu {
         }    
     }
     
-    public void mostrarRegras(){
+    // Exibe as regras do jogo.
+    private void mostrarRegras(){
         System.out.println("\n=== Regras do TrucoBarato! ===");
         System.out.println("1. Cada jogador recebe 3 cartas por rodada.");
         System.out.println("2. Em cada turno, os dois jogadores jogam uma carta.");
@@ -72,7 +76,8 @@ public class ViewMenu {
         System.out.println("Boa sorte e divirta-se!\n");
     }
     
-    public void exibirHistorico(){
+    // Exibe o histórico de partidas anteriormente registradas.
+    private void exibirHistorico(){
         Collection<RegistroPartida> historico = controller.listarHistorico();
         
         if (historico.isEmpty()) {
@@ -85,6 +90,7 @@ public class ViewMenu {
         
         System.out.println("\n=== Historico TrucoBarato! ===");
         
+        // Percorre todos os registros de partida
         for (RegistroPartida h : historico) {
             RegistroJogador jogador = controller.buscarJogadorId(
             h.getJogadorId());
@@ -97,7 +103,8 @@ public class ViewMenu {
         
     }
     
-    public boolean listarPerfis(){
+    // Exibe todos os perfis cadastrados no sistema.
+    private boolean listarPerfis(){
         Collection<RegistroJogador> perfis = controller.listarPerfis();
          if (perfis == null || perfis.isEmpty()) {
             System.out.println("Nenhum perfil cadastrado.");
@@ -111,7 +118,8 @@ public class ViewMenu {
         return true;
     }
     
-    public void deletarPerfil(){
+    // Remove um perfil e seu histórico associado, solicitando confirmação.
+    private void deletarPerfil(){
         if(!listarPerfis()) return;
         
         int id = Input.lerInt("Digite o ID para deletar: ");
@@ -138,7 +146,8 @@ public class ViewMenu {
         System.out.println("Perfil deletado!");
     }
     
-    public void selecionarPerfil(){
+    // Permite o usuário selecionar um perfil previamente cadastrado.
+    private void selecionarPerfil(){
         if(!listarPerfis()) return;
         
         int id = Input.lerInt("Digite o ID para selecionar: ");
@@ -151,7 +160,8 @@ public class ViewMenu {
         }
     }
     
-    public void criarPerfil(){
+    // Cria um novo perfil de jogador.
+    private void criarPerfil(){
         String nome = Input.lerString("Digite o novo nome para seu perfil: ");
         try{
             controller.criarPerfil(nome);
@@ -161,7 +171,8 @@ public class ViewMenu {
         }
     }
     
-    public void iniciarPartida(){
+    // Inicia um nova partida utilizando o perfil atual selecionado.
+    private void iniciarPartida(){
         String nome = controller.buscarNome();
         if (nome == null) {
             System.out.println("Selecione um perfil antes de jogar!");
