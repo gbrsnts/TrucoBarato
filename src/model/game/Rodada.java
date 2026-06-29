@@ -7,7 +7,7 @@ import view.game.ViewRodada;
 import view.util.Input;
 
 /**
- * Classe responsável pela classe e lógica de cada rodada
+ * Classe responsável pela lógica de cada rodada.
  * 
  * @author gbrsnts  
  */
@@ -24,15 +24,22 @@ public class Rodada {
     }
         
     public Jogador iniciarRodada(){
+        
+        // Distribui cartas inicias e reseta o estado dos jogadores.
         distribuirCartas();
         
+        /* Loop que continua enquanto nenhum jogador atingir 
+        a pontuação necessária para o turno acabar. */
         while(jogador1.getTurnPontos() < TURNOS_PARA_VENCER &&
                 jogador2.getTurnPontos() < TURNOS_PARA_VENCER){
                         
+            // Cria um turno entre os jogadores atuais.
             Turno turno = new Turno(jogador1, jogador2);
             
+            // Executa o turno e captura o vencedor.
             Jogador vencedorTurno = turno.jogar();
             
+            // Atualiza pontuação e exibe o resultado do turno.
             if(vencedorTurno == jogador1) {
                 ViewRodada.ganhadorTurno(jogador1);
                 jogador1.ganhouTurno();
@@ -40,7 +47,11 @@ public class Rodada {
                 ViewRodada.ganhadorTurno(jogador2);
                 jogador2.ganhouTurno();
             }
+            
             Input.separador();
+            
+            /* Lógica do jogo onde que o jogador que vencer o turno
+            será o primeiro a jogar no próximo turno. */
             if(vencedorTurno == jogador2) {
                 Jogador temp = jogador1;
                 jogador1 = jogador2;
@@ -48,17 +59,16 @@ public class Rodada {
             }
         }
         
-        /*
-        Verifica qual jogador alcançou 2 pontos primeiro, depois retorna
-        para que que seja incrementado um ponto na classe da partida.
-        */
-        
+        /* Verifica qual jogador alcançou 2 pontos primeiro, depois retorna
+        para que que seja incrementado um ponto na classe da partida. */
         if (jogador1.getTurnPontos() >= TURNOS_PARA_VENCER) {
         return jogador1;
         }
         return jogador2;
     }
     
+    /* Distribui as cartas do baralho para os jogadores
+    e reinicia a pontuação de turno. */
     private void distribuirCartas() {
         baralho.distribuirCarta(jogador1);
         baralho.distribuirCarta(jogador2);

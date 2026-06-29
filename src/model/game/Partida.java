@@ -66,7 +66,7 @@ public class Partida {
         return placar;
     }
        
-    public Jogador anunciarVencedor() {
+    private Jogador anunciarVencedor() {
         if (jogadorHumano.getRoundPoints() > jogadorMaquina.getRoundPoints()) {
             return jogadorHumano;
         }
