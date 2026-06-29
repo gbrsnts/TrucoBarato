@@ -1,6 +1,4 @@
 package view.game;
-import java.util.InputMismatchException;
-import java.util.Scanner;
 import model.carta.Carta;
 import model.jogador.Jogador;
 import view.util.Input;
