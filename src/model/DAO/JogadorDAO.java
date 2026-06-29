@@ -96,6 +96,26 @@ public class JogadorDAO implements Serializable {
     public RegistroJogador buscarPerfil(int id){
         return jogadores.get(id);
     }
+    
+    // UPDATE - Atualiza o nome do jogador
+    public boolean atualizarNome(int id, String novoNome){
+        
+        // Busca o jgoador no HashMap pelo ID
+        RegistroJogador jogador = jogadores.get(id);
+        
+        // Verifica se o jogador existe antes de atualizar
+        if (jogador == null){
+            return false;
+        }
+        
+        // Atualiza o atributo de nome do registro
+        jogador.setName(novoNome);
+        
+        // Salva a alteração no arquivo.
+        salvar();
+        
+        return true;
+    }
 
     // DELETE - Remove um perfil do sistema.
     public boolean deletarPerfil(int id) {

@@ -75,6 +75,11 @@ public class MenuController {
     return (perfil != null) ? perfil.getName() : null;
     }
     
+    // Altera o nome de um jogador
+    public boolean alterarNomePerfil(int id, String novoNome){
+        return jogadorDAO.atualizarNome(id, novoNome);
+    }
+    
     // Busca um jogador pelo seu ID.
     public RegistroJogador buscarJogadorId(int id){
         return jogadorDAO.buscarPerfil(id);

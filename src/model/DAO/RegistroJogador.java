@@ -44,6 +44,14 @@ public class RegistroJogador implements Serializable{
         return createdAt;
     }
     
+    // Define o nome do jogador no perfil.
+    public void setName(String name){
+        if(name == null || name.isBlank()){
+            throw new IllegalArgumentException("Nome inválido");
+        }
+        this.name = name;
+    }
+    
     // Retorna o nome do jogador.
     public String getName(){
         return name;

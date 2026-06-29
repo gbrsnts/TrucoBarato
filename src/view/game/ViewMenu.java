@@ -31,9 +31,10 @@ public class ViewMenu {
             System.out.println("[2] Selecionar perfil");
             System.out.println("[3] Jogar");
             System.out.println("[4] Historico");
-            System.out.println("[5] Deletar perfil");
-            System.out.println("[6] Regras");
-            System.out.println("[7] Sair");
+            System.out.println("[5] Alterar nome do perfil");
+            System.out.println("[6] Deletar perfil");
+            System.out.println("[7] Regras");
+            System.out.println("[8] Sair");
             
             int opcao = Input.lerInt("Escolha uma opcao: ");
             switch(opcao){
@@ -50,12 +51,15 @@ public class ViewMenu {
                     exibirHistorico();
                     break;
                 case 5:
-                    deletarPerfil();
+                    alterarNomePerfil();
                     break;
                 case 6:
-                    mostrarRegras();
+                    deletarPerfil();
                     break;
                 case 7:
+                    mostrarRegras();
+                    break;
+                case 8:
                     System.out.println("Encerrando jogo...");
                     return;
                 default:
@@ -157,6 +161,30 @@ public class ViewMenu {
                 + " selecionado!");
         } else {
             System.out.println("ID invalido!");
+        }
+    }
+    
+    // Permite o usuário alterar o nome de um perfil.
+    public void alterarNomePerfil(){
+        if(!listarPerfis()) return;
+        
+        int id = Input.lerInt("Digite o ID do perfil: ");
+        
+        RegistroJogador perfil = controller.buscarJogadorId(id);
+        
+        if(perfil == null){
+            System.out.println("ID invalido!");
+            return;
+        }
+        
+        String novoNome = Input.lerString("Digite o novo nome: ");
+        
+        boolean ok = controller.alterarNomePerfil(id, novoNome);
+        
+        if(ok){
+            System.out.println("Nome alterado com sucesso!");
+        } else {
+            System.out.println("Erro ao alterar nome.");
         }
     }
     
