@@ -25,6 +25,7 @@ public class HistoricoDAO {
         carregar();
     }
 
+    // Carrega o histórico de partidas armazenado no arquivo.
     public void carregar() {
         File arquivo = new File(ARQUIVO);
         
@@ -71,7 +72,7 @@ public class HistoricoDAO {
         }
     }
 
-    // Adiciona um novo registro de partida no histórico.
+    // CREATE - Adiciona um novo registro de partida no histórico.
     public void adicionar(RegistroJogador perfil, String placar) {
         
         // Cria um novo registro de partida.
@@ -84,13 +85,18 @@ public class HistoricoDAO {
         // Salva a alteração no arquivo.
         salvar();
     }
-
-    // Retorna todos os registros de partidas já armazenados.
+    
+    // READ - Retorna todos os registros de partidas já armazenados.
     public Collection<RegistroPartida> listarHistorico(){
         return historico.values();
     }
+
+    // READ - Verifica se existe pelo menos um registro no histórico.
+    public boolean existe(){
+        return !historico.isEmpty();
+    }
     
-    // Remove todas as partidas associadas a um jogador específico.
+    // DELETE - Remove todas as partidas associadas a um jogador específico.
     public boolean deletarById(int jogadorId) {
         
         // Guarda a quantidade de registros antes da remoção.
@@ -110,11 +116,4 @@ public class HistoricoDAO {
         }
         return false;
     }
-
-    // Verifica se existe pelo menos um registro no histórico.
-    public boolean existe(){
-        return !historico.isEmpty();
-    }
-    
-    
 }
