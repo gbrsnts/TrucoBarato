@@ -6,24 +6,24 @@ import java.util.List;
 import model.jogador.Jogador;
 
 /**
- * Classe responsável pelo baralho
+ * Classe responsável por gerenciar o baralho do jogo.
+ * 
  * @author gbrsnts
  */
 public class Baralho {
     private List<Carta> cartas = new ArrayList<>();
-    
-    /**
-     * O construtor de baralho já vai montar o baralho e embalhar cada partida.
-     */
+   
     public Baralho(){
+        
+        /* Quando um baralho é criado: todas as cartas são geradas
+        e o baralho é embaralhado automaticamente. */
         montarBaralho();
         embaralhar();
     }
     
-    
-    /**
-     * Gera uma carta com cada valor e naipe e adiciona no baralho.
-     */
+    /* Gera todas as cartas possível do baralho.
+     * Percorrendo todos os naipes e valores, 
+     * realizando uma combinação pra cada carta. */
     private void montarBaralho(){
         for(Naipe naipe : Naipe.values()){
             for(ValorCarta valor : ValorCarta.values()){
@@ -32,26 +32,17 @@ public class Baralho {
         }
     }
     
-    /**
-     * Embaralha utilizando o método shuffle da colletion.
-     */    
+    // Embaralha utilizando o método shuffle de collection.
     public void embaralhar(){
         Collections.shuffle(cartas);
     }
     
-    
-    /**
-     * Remove a primeira carta do baralho e retorna qual foi removida.
-     */
+    // Retira uma carta do "topo" do baralho, retornando a mesma.
     public Carta comprar(){
         return cartas.remove(0);
     }
     
-    /**
-     * Método para distribuir 3 cartas para cada jogador.
-     * Primeiramente limpa a mão do jogador
-     * Logo dá três cartas para o jogador, removedo-as do baralho.
-     */
+    // Distribui 3 cartas para um jogador, removedo-as do baralho.
     public void distribuirCarta(Jogador jogador){
         jogador.limparMao();
         for(int i = 0; i < 3; i++){
