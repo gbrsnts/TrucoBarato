@@ -6,6 +6,8 @@ import model.carta.Carta;
 
 /**
  * Classe abstrata que é utilizado como base de cada jogador.
+ * Concentra toda a lógica comum entre jogadorHumano e jogadorMaquina.
+ * 
  * @author gbrsnts
  */
 public abstract class Jogador {
@@ -22,64 +24,68 @@ public abstract class Jogador {
         setNome(nome);
     }
     
+    // Adiciona uma carta à mão do jogador.
     public void receberCarta(Carta carta){
-        // Adicionar uma carta na mão do jogador
         mao.add(carta);
     }
     
+    // Retorna todas as cartas que o jogador possui na mão.
     public List<Carta> getMao(){
-        // Mostrar as cartas da mão do jogador
         return mao;
     }
     
+    // Remove todas as cartas da mão do jogador.
     public void limparMao(){
-        // Limpar a mão após cada rodada
         mao.clear();
     }
     
+    // Retorna pontuação de rodadas dentro da partida.
     public int getRoundPoints(){
         // Informar quantos pontos tem o jogador
         return this.roundPoints;
     }
     
+    // Incrementa a pontuação de rodada dentro da partida.
     public void ganhouRodada(){
-        // Adicionar um ponto ao jogador ao ganhar a rodada
         this.roundPoints++;
     }
     
+    // Retorna pontuação de turno dentro da rodada.
     public int getTurnPontos(){
-        // Informar quantos pontos tem o jogador
         return this.turnPoints;
     }
     
+    // Incrementa a pontuação de turno dentro da rodada.
     public void ganhouTurno(){
-        // Adicionar um ponto ao jogador ao ganhar o turno
         this.turnPoints++;
     }
     
+    // Zera os pontos de turno no início de cada rodada.
     public void zerarTurnos(){
-        // Zera os pontos de turno no início de cada rodada
         this.turnPoints = 0;
     }
 
+    // Define o nome do jogador com validação.
     public void setNome(String nome) {
+        
         // Verifica se o nome do jogador não está nulo ou em branco
         if(nome == null || nome.isBlank()){
             throw new IllegalArgumentException(
                 "Nome inválido"
             );
         }
-        // Configura um nome para o jogador
+        
         this.nome = nome;
     }
 
+    // Retorna o nome do jogador.
     public String getNome() {
-        // Retorna o nome do jogador
         return nome;
     }
     
     /**
-     * Método abstrato para adequar a escolha da carta para cada classe
+     * Método abstrato que define o comportamento de escolher carta.
+     * Cada tipo de jogador deve implementar sua própria lógica.
      */
     public abstract Carta escolherCarta(int indice);
     
