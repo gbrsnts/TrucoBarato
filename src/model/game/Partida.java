@@ -1,6 +1,5 @@
 package model.game;
 
-import model.DAO.HistoricoDAO;
 import model.jogador.Jogador;
 import model.jogador.JogadorHumano;
 import model.jogador.JogadorMaquina;
@@ -8,6 +7,7 @@ import view.game.ViewPartida;
 
 /**
  * Classe responsável pela lógica principal do jogo.
+ * 
  * @author gbrsnts
  */
 public class Partida {
@@ -22,18 +22,16 @@ public class Partida {
     }
     
     public String iniciarPartida(){
-        /** Executa rodadas até que alguém atinja 5 pontos, caso
-        alguém alcance 5 pontos, a partida termina e anuncia o vencedor. */
+        /* Loop que continua a partida enquanto nenhum jogador atingir 
+        a pontuação necessária para a rodada acabar. */
         while (jogadorHumano.getRoundPoints() < PONTOS_PARA_VENCER &&
                 jogadorMaquina.getRoundPoints() < PONTOS_PARA_VENCER){
-            
-            
-            /** Define uma sequência de quem será o primeiro
-            intercalando entre jogadores */
             
             Jogador primeiro;
             Jogador segundo;
 
+            /* Define quem começa a rodada, caso a rodada seja ímpar
+            será a vez do jogadorHumano, caso contrário, será a máquina. */
             if(numeroRodada % 2 != 0) {
                 primeiro = jogadorHumano;
                 segundo = jogadorMaquina;
@@ -42,30 +40,41 @@ public class Partida {
                 segundo = jogadorHumano;
             }
             
+            // Exibe o cabeçalho da rodada para o usuário.
             ViewPartida.cabecalho(numeroRodada, jogadorHumano, jogadorMaquina);
             
-            // Instancia uma rodada a cada loop
+            // Cria uma nova rodada com ordem definida.
             Rodada rodada = new Rodada(primeiro, segundo);
             
+            // Executa a rodada e captura o vencedor.
             Jogador vencedorRodada = rodada.iniciarRodada();
+            
+            // Atualiza a pontuação do vencedor da rodada.
             vencedorRodada.ganhouRodada();
+            
+            // Exibe o vencedor da rodada.
             ViewPartida.ganhadorRodada(vencedorRodada);
             
+            // Incrementa o contador de rodadas.
             numeroRodada++;
             
         }
         Jogador vencedor = anunciarVencedor();
         
+        // Monta o placar final.
         String placar =
                 jogadorHumano.getRoundPoints()
                 + " x "
                 + jogadorMaquina.getRoundPoints();
         
+        // Exibe o resultado da partida.
         ViewPartida.fim(vencedor, jogadorHumano);
         
+        // Retorna o placar pro JogoController inserir no histórico.
         return placar;
     }
-       
+    
+    // Determina qual jogador venceu a partida.   
     private Jogador anunciarVencedor() {
         if (jogadorHumano.getRoundPoints() > jogadorMaquina.getRoundPoints()) {
             return jogadorHumano;

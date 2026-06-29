@@ -28,7 +28,7 @@ public class Rodada {
         // Distribui cartas inicias e reseta o estado dos jogadores.
         distribuirCartas();
         
-        /* Loop que continua enquanto nenhum jogador atingir 
+        /* Loop que continua a rodada enquanto nenhum jogador atingir 
         a pontuação necessária para o turno acabar. */
         while(jogador1.getTurnPontos() < TURNOS_PARA_VENCER &&
                 jogador2.getTurnPontos() < TURNOS_PARA_VENCER){
