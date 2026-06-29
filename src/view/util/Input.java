@@ -10,9 +10,8 @@ import java.util.Scanner;
 public class Input {
     private static Scanner scanner = new Scanner(System.in);
     
+    // Valida se é um número inteiro válido.
     public static int lerInt(String mensagem){
-        
-        // Valida se é um número inteiro válido.
         while(true){
             System.out.print(mensagem);
             String entrada = scanner.nextLine().trim();
@@ -30,9 +29,8 @@ public class Input {
         }
     }
     
+    // Valida se é um CHAR válido entre 'S' ou 'N'.
     public static char lerChar(String mensagem){
-        
-        // Valida se é um CHAR válido entre 'S' ou 'N'.
         while(true){
             System.out.println(mensagem);
             
@@ -53,9 +51,8 @@ public class Input {
         }
     }
     
+    // Valida se é um String válido e não uma entrada vazia.
     public static String lerString(String mensagem){
-        
-        // Valida se é um String válido e não uma entrada vazia.
         while(true){
             System.out.print(mensagem);
             

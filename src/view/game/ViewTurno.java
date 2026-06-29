@@ -11,23 +11,21 @@ import view.util.Input;
  * @author gbrsnts
  */
 public class ViewTurno {
+    
+    // Exibe a carta escolhida pelo jogador.
     public static void mostrarJogada(Jogador jogador, Carta carta) {
-        
-        // Exibe a carta escolhida pelo jogador.
         System.out.println(jogador.getNome() + " jogou um " + carta);
     }
     
+    // Exibe todas cartas ainda disponíveis na mão do jogador
     public static void mostrarMao(Jogador jogador){
-        
-        // Exibe todas cartas ainda disponíveis na mão do jogador
         for (int i = 0; i < jogador.getMao().size(); i++) {
             System.out.println((i + 1) + " - " + jogador.getMao().get(i));
         }
     }
     
+    // Permite que o jogador escolha uma carta e valida a oppção escolhida
     public static int escolherCarta(Jogador jogador) {
-        
-        // Permite que o jogador escolha uma carta e valida a oppção escolhida
         while (true) {
             mostrarMao(jogador);            
             int escolha = Input.lerInt("Escolha uma carta: ");

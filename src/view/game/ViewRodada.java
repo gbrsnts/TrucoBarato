@@ -9,7 +9,7 @@ import model.jogador.Jogador;
  */
 public class ViewRodada {
     
-    // Exibe informação de vitória do turno.
+    // Exibe informação de vitória do "turno".
     public static void ganhadorTurno(Jogador jogador){
         System.out.println("\u001B[31m" 
         + jogador.getNome() 

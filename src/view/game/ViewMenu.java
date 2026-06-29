@@ -8,7 +8,10 @@ import java.time.format.DateTimeFormatter;
 import view.util.Input;
 
 /**
- *
+ * Classe do jogo responsável pela interação com o usuário.
+ * Função de exibir o menu principal, interagir com o usuário
+ * e e encaminhar as solicitações ao MenuController.
+ * 
  * @author gbrsnts 
  */
 public class ViewMenu {    
@@ -28,7 +31,7 @@ public class ViewMenu {
             System.out.println("[5] Deletar perfil");
             System.out.println("[6] Regras");
             System.out.println("[7] Sair");
-            System.out.print("Escolha uma opcao: ");
+            
             int opcao = Input.lerInt("Escolha uma opcao: ");
             switch(opcao){
                 case 1:

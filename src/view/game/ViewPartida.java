@@ -19,6 +19,7 @@ public class ViewPartida {
         }
     }
     
+    // Exibe o cabeçalho da rodada atual e seu placar.
     public static void cabecalho(int numeroRodada, 
             Jogador jogadorHumano, Jogador jogadorMaquina){
         Input.linha();
@@ -34,6 +35,7 @@ public class ViewPartida {
         );
     }
     
+    // Exibe informação de vitória da "rodada".
     public static void ganhadorRodada(Jogador jogador){
         System.out.println("\u001B[34m" 
         + jogador.getNome() 

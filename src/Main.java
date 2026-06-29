@@ -7,7 +7,6 @@ import view.game.ViewMenu;
  * @author gbrsnts
  */
 public class Main {
-
     public static void main(String[] args) {
         // Instancia o controlador principal do sistema
         MenuController controller = new MenuController();
