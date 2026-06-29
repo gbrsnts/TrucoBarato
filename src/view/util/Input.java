@@ -3,19 +3,22 @@ package view.util;
 import java.util.Scanner;
 
 /**
- *
+ * Classe utilitária para leitura e validação de entradas do usuário.
+ *  
  * @author gbrsnts
  */
 public class Input {
     private static Scanner scanner = new Scanner(System.in);
     
     public static int lerInt(String mensagem){
+        
+        // Valida se é um número inteiro válido.
         while(true){
-            System.out.println(mensagem);
+            System.out.print(mensagem);
             String entrada = scanner.nextLine().trim();
             
             if(entrada.isEmpty()) {
-                System.out.print("Entrada vazia! Digite um numero.");
+                System.out.println("Entrada vazia! Digite um numero.");
                 continue;
             }
             
@@ -28,6 +31,8 @@ public class Input {
     }
     
     public static char lerChar(String mensagem){
+        
+        // Valida se é um CHAR válido entre 'S' ou 'N'.
         while(true){
             System.out.println(mensagem);
             
@@ -46,6 +51,23 @@ public class Input {
             
             System.out.println("Entrada inválida! Digite apenas 'S' ou 'N'.");
         }
-    }           
+    }
+    
+    public static String lerString(String mensagem){
+        
+        // Valida se é um String válido e não uma entrada vazia.
+        while(true){
+            System.out.print(mensagem);
+            
+            String entrada = scanner.nextLine().trim();
+            
+            if(entrada.isEmpty()){
+                System.out.println("Entrada vazia!");
+                continue;
+            }
+            
+            return entrada;
+        }
+    }
     
 }

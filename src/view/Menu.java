@@ -1,7 +1,5 @@
 package view;
 
-import java.util.Scanner;
-import java.util.InputMismatchException;
 import controller.MenuController;
 import java.util.Collection;
 import model.DAO.RegistroJogador;
@@ -14,7 +12,6 @@ import view.util.Input;
  * @author gbrsnts 
  */
 public class Menu {    
-    private Scanner scanner = new Scanner(System.in);
     private MenuController controller;
     
     public Menu(MenuController controller){
@@ -32,37 +29,31 @@ public class Menu {
             System.out.println("[6] Regras");
             System.out.println("[7] Sair");
             System.out.print("Escolha uma opcao: ");
-            try{
-                int opcao = scanner.nextInt();
-                scanner.nextLine();
-                switch(opcao){
-                    case 1:
-                        criarPerfil();
-                        break;
-                    case 2:
-                        selecionarPerfil();
-                        break;
-                    case 3:
-                        iniciarPartida();
-                        break;
-                    case 4:
-                        exibirHistorico();
-                        break;
-                    case 5:
-                        deletarPerfil();
-                        break;
-                    case 6:
-                        mostrarRegras();
-                        break;
-                    case 7:
-                        System.out.println("Encerrando jogo...");
-                        return;
-                    default:
-                        System.out.println("Opcao invalida!");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Digite apenas numeros!");
-                scanner.nextLine();
+            int opcao = Input.lerInt("Escolha uma opcao: ");
+            switch(opcao){
+                case 1:
+                    criarPerfil();
+                    break;
+                case 2:
+                    selecionarPerfil();
+                    break;
+                case 3:
+                    iniciarPartida();
+                    break;
+                case 4:
+                    exibirHistorico();
+                    break;
+                case 5:
+                    deletarPerfil();
+                    break;
+                case 6:
+                    mostrarRegras();
+                    break;
+                case 7:
+                    System.out.println("Encerrando jogo...");
+                    return;
+                default:
+                    System.out.println("Opcao invalida!");
             }
         }    
     }
@@ -158,8 +149,7 @@ public class Menu {
     }
     
     public void criarPerfil(){
-        System.out.print("Digite o novo nome para seu perfil: ");
-        String nome = scanner.nextLine();
+        String nome = Input.lerString("Digite o novo nome para seu perfil: ");
         try{
             controller.criarPerfil(nome);
             System.out.println("Perfil " + nome + " criado.");
