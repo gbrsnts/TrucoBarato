@@ -15,7 +15,7 @@ public abstract class Jogador {
      * Array list para ser a "mão" do jogador, com suas respectivas cartas.
      * Variável de pontosPartida para atribuir um placar ao jogo
      */
-    protected List<Carta> mao = new ArrayList<>();
+    private List<Carta> mao = new ArrayList<>();
     private int roundPoints;
     private int turnPoints;
     private String nome;
@@ -32,6 +32,16 @@ public abstract class Jogador {
     // Retorna todas as cartas que o jogador possui na mão.
     public List<Carta> getMao(){
         return mao;
+    }
+    
+    // Remove a carta no index passado.
+    public Carta removerCarta(int index){
+        return mao.remove(index);
+    }
+    
+    // Retorna quantas cartas há na mão do jogador.
+    public int tamanhoMao(){
+        return mao.size();
     }
     
     // Remove todas as cartas da mão do jogador.
@@ -51,7 +61,7 @@ public abstract class Jogador {
     }
     
     // Retorna pontuação de turno dentro da rodada.
-    public int getTurnPontos(){
+    public int getTurnPoints() {
         return this.turnPoints;
     }
     

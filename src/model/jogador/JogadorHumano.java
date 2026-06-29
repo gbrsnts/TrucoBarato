@@ -33,6 +33,6 @@ public class JogadorHumano extends Jogador {
     */
     @Override
     public Carta escolherCarta(int indice) {    
-        return mao.remove(indice);
+        return removerCarta(indice);
     }
 }

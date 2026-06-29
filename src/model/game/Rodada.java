@@ -14,6 +14,9 @@ import view.util.Input;
 public class Rodada {
     private Jogador jogador1;
     private Jogador jogador2;
+    // COMPOSIÇÃO:
+    // A classe "Rodada" é reponsável por criar e gerenciar o Baralho.
+    // O baralho só existe dentro do contexto da Rodada e é descartado ao final dela.
     private final Baralho baralho;
     private static final int TURNOS_PARA_VENCER = 2;    
 
@@ -30,8 +33,8 @@ public class Rodada {
         
         /* Loop que continua a rodada enquanto nenhum jogador atingir 
         a pontuação necessária para o turno acabar. */
-        while(jogador1.getTurnPontos() < TURNOS_PARA_VENCER &&
-                jogador2.getTurnPontos() < TURNOS_PARA_VENCER){
+        while(jogador1.getTurnPoints() < TURNOS_PARA_VENCER &&
+                jogador2.getTurnPoints() < TURNOS_PARA_VENCER){
                         
             // Cria um turno entre os jogadores atuais.
             Turno turno = new Turno(jogador1, jogador2);
@@ -61,7 +64,7 @@ public class Rodada {
         
         /* Verifica qual jogador alcançou 2 pontos primeiro, depois retorna
         para que que seja incrementado um ponto na classe da partida. */
-        if (jogador1.getTurnPontos() >= TURNOS_PARA_VENCER) {
+        if (jogador1.getTurnPoints() >= TURNOS_PARA_VENCER) {
         return jogador1;
         }
         return jogador2;

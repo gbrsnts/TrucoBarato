@@ -1,7 +1,6 @@
 package model.jogador;
 
 import java.util.Random;
-import model.jogador.Jogador;
 import model.carta.Carta;
 
 /**
@@ -21,10 +20,10 @@ public class JogadorMaquina extends Jogador {
     @Override
     public Carta escolherCarta(int indice) {
         // Gera um índice aleatório baseado no tamanho da mão.
-        int index = random.nextInt(mao.size());
+        int index = random.nextInt(tamanhoMao());
         
         // Remove e retorna a carta escolhida.
-        return mao.remove(index);
+        return removerCarta(index);
     }
     
 }
