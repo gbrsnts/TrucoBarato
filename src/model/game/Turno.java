@@ -11,6 +11,8 @@ import view.game.ViewTurno;
  * @author gbrsnts
  */
 public class Turno {
+    // RELACIONAMENTO: AGREGAÇÃO
+    // Os jogadores são apenas referenciados no turno, não pertencem a ele.
     private Jogador primeiro;
     private Jogador segundo;
     

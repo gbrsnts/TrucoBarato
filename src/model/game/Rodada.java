@@ -14,7 +14,7 @@ import view.util.Input;
 public class Rodada {
     private Jogador jogador1;
     private Jogador jogador2;
-    // COMPOSIÇÃO:
+    // RELACIONAMENTO: COMPOSIÇÃO
     // A classe "Rodada" é reponsável por criar e gerenciar o Baralho.
     // O baralho só existe dentro do contexto da Rodada e é descartado ao final dela.
     private final Baralho baralho;

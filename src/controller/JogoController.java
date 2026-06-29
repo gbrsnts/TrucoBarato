@@ -14,7 +14,8 @@ import model.game.Partida;
  * @author gbrsnts
  */
 public class JogoController {
-    
+    // RELACIONAMENTO: AGREGAÇÃO
+    // O controller apenas utiliza o DAO, sem controler seu ciclo de vida.
     // Declara objeto responsável pela persistência do histórico.
     private HistoricoDAO historicoDAO;
     

@@ -17,7 +17,7 @@ public class Partida {
     private int numeroRodada = 1;
     
     public Partida(JogadorHumano jogadorHumano, JogadorMaquina jogadorMaquina) {
-        // COMPOSIÇÃO:
+        // RELACIONAMENTO: COMPOSIÇÃO
         // Os jogadores são instanciados dentro da "Partida.
         // E fazem parte do ciclo de vida da "Partida".
         this.jogadorHumano = jogadorHumano;

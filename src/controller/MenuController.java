@@ -14,6 +14,8 @@ import java.util.Collection;
  * @author gbrsnts
  */
 public class MenuController {
+    // RELACIONAMENTO: AGREGAÇÃO
+    // O controller apenas utiliza os DAOs, sem controler seu ciclo de vida.
     private HistoricoDAO historicoDAO;
     private JogadorDAO jogadorDAO;
     private JogoController jogoController;
