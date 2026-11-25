@@ -3,6 +3,7 @@ package model.DAO;
 import java.io.*;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  *  Classe responsável pelo gerencimento dos perfis de jogadores.
@@ -19,7 +20,7 @@ public class JogadorDAO implements Serializable {
 
     private static final String ARQUIVO = "registros/jogador.dat";
     private HashMap<Integer, RegistroJogador> jogadores;
-    private int perfilSelecionadoId = -1;
+    private Integer perfilSelecionadoId;
     
     // Cria uma instância de jogador e carrega os dados do arquivo.
     public JogadorDAO(){
@@ -93,12 +94,12 @@ public class JogadorDAO implements Serializable {
     }
 
     // READ - Busca um perfil pelo seu ID(Chave).
-    public RegistroJogador buscarPerfil(int id){
+    public RegistroJogador buscarPerfil(Integer id){
         return jogadores.get(id);
     }
     
     // UPDATE - Atualiza o nome do jogador
-    public boolean atualizarNome(int id, String novoNome){
+    public boolean atualizarNome(Integer id, String novoNome){
         
         // Busca o jgoador no HashMap pelo ID
         RegistroJogador jogador = jogadores.get(id);
@@ -118,15 +119,15 @@ public class JogadorDAO implements Serializable {
     }
 
     // DELETE - Remove um perfil do sistema.
-    public boolean deletarPerfil(int id) {
+    public boolean deletarPerfil(Integer id) {
         
-        // Remove o jgoador.
+        // Remove o jogador.
         RegistroJogador removido = jogadores.remove(id);
         
         // Se o perfil removido era o selecionado
         // Também remove a seleção atual
-        if(id == perfilSelecionadoId){
-            perfilSelecionadoId = -1;
+        if(Objects.equals(id, perfilSelecionadoId)){
+            perfilSelecionadoId = null;
         }
         
         // Salva as alterações

@@ -15,18 +15,24 @@ public class RegistroPartida implements Serializable{
     Por ser compartilhado entre todos os objetos da classe é static, garantindo
     que cada partida receba um valor único.
     */
+    private static final long serialVersionUID = 1L;
     private static int proximoId = 1;
     
-    private int id;
-    private int jogadorId;
-    private String placar;
+    private Integer id;
+    private Integer jogadorId;
+    private Integer pontosJogador;
+    private Integer pontosMaquina;
+    private Boolean venceu;    
     private LocalDateTime playedAt;
     
     
-    public RegistroPartida(RegistroJogador perfil, String placar){
+    public RegistroPartida(RegistroJogador perfil, Integer pontosJogador,
+                           Integer pontosMaquina, Boolean venceu){
         this.id = proximoId++;
         this.jogadorId = perfil.getId();
-        this.placar = placar;
+        this.pontosJogador = pontosJogador;
+        this.pontosMaquina = pontosMaquina;
+        this.venceu = venceu;
         this.playedAt = LocalDateTime.now();
     }
     
@@ -38,25 +44,38 @@ public class RegistroPartida implements Serializable{
     }
     
     // Retornar o ID da partida
-    public int getId(){
+    public Integer getId(){
         return id;
     }
     
     // Retorna o ID do jogador da partida.
-    public int getJogadorId(){
+    public Integer getJogadorId(){
         return jogadorId;
     }
     
     
-    // Retorna o placar da partida.
-    public String getPlacar(){
-        return placar;
+    // Retorna os pontos do jogador.
+    public Integer getPontosJogador(){
+        return pontosJogador;
     }
-    
+
+    // Retorna os pontos da máquina.
+    public Integer getPontosMaquina(){
+        return pontosMaquina;
+    }
+
+    // Retorna status da partida.
+    public Boolean getVenceu(){
+        return venceu;
+    }
     
     // Retorna data e hora em que a partida foi realizada.
     public LocalDateTime getPlayedAt(){
         return playedAt;
+    }
+    
+    public void setId(Integer id) { 
+        this.id = id; 
     }
     
     /* Retorna o ID, placar e data/hora da partida.
@@ -64,7 +83,7 @@ public class RegistroPartida implements Serializable{
     @Override
     public String toString(){
         return "[" + id + "] JogadorID=" + jogadorId +
-            " Placar=" + placar +
+            " Placar=" + pontosJogador + " x " + pontosMaquina +
             " Data=" + playedAt;
     }
 }

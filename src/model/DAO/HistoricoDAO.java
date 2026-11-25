@@ -4,6 +4,7 @@ import java.io.*;
 import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * Classe responsável pelo gerencimento do histórico de partidas.
@@ -73,11 +74,11 @@ public class HistoricoDAO {
     }
 
     // CREATE - Adiciona um novo registro de partida no histórico.
-    public void adicionar(RegistroJogador perfil, String placar) {
+    public void adicionar(RegistroJogador perfil, Integer pontosJogador, Integer pontosMaquina, Boolean venceu) {
         
         // Cria um novo registro de partida.
         RegistroPartida registro = 
-                new RegistroPartida(perfil, placar);
+                new RegistroPartida(perfil, pontosJogador, pontosMaquina, venceu);
         
         // Armazena o registro utilizando o ID como chave.
         historico.put(registro.getId(), registro);
@@ -97,14 +98,14 @@ public class HistoricoDAO {
     }
     
     // DELETE - Remove todas as partidas associadas a um jogador específico.
-    public boolean deletarById(int jogadorId) {
+    public boolean deletarById(Integer jogadorId) {
         
         // Guarda a quantidade de registros antes da remoção.
         int tamanhoAntes = historico.size();
         
         // Remove todas as partidas pertencentes ao jogador.
         historico.entrySet().removeIf(
-        entry -> entry.getValue().getJogadorId() == jogadorId
+        entry -> Objects.equals(entry.getValue().getJogadorId(), jogadorId)
         );
         
         // Verifica se houve alteração no tamanho.

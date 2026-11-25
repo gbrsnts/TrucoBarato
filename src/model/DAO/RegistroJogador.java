@@ -15,9 +15,10 @@ public class RegistroJogador implements Serializable{
     Por ser compartilhado entre todos os objetos da classe é static, garantindo
     que cada jogador receba um valor único.
     */
+    private static final long serialVersionUID = 1L;
     private static int proximoId = 1;
     
-    private int id;
+    private Integer id;
     private LocalDateTime createdAt;
     private String name;
     
@@ -34,8 +35,13 @@ public class RegistroJogador implements Serializable{
         }
     }
     
+    // Retorna o nome do jogador.
+    public String getName(){
+        return name;
+    }    
+    
     // Retornar o ID do jogador.
-    public int getId(){
+    public Integer getId(){
         return id;
     }
     
@@ -52,11 +58,6 @@ public class RegistroJogador implements Serializable{
         this.name = name;
     }
     
-    // Retorna o nome do jogador.
-    public String getName(){
-        return name;
-    }
-
     /* Retorna o ID e nome de cada jogador.
      Utilizando quando for exibido em listas ou menus. */
     @Override

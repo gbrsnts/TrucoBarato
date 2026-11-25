@@ -99,10 +99,13 @@ public class ViewMenu {
             RegistroJogador jogador = controller.buscarJogadorId(
             h.getJogadorId());
             
+            // Configura uma string de acord com o status da partida.
+            String resultado = Boolean.TRUE.equals(h.getVenceu()) ? "VITORIA" : "DERROTA";
+            
             System.out.println("[" + h.getPlayedAt().format(formatter)
                     + "] " + jogador.getName()
-                    + " " + h.getPlacar()
-                    + " Stuart");
+                    + h.getPontosJogador() + " x " + h.getPontosMaquina()
+                    + " Stuart - " + resultado);
         }
         
     }

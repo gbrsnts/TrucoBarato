@@ -24,7 +24,7 @@ public class Partida {
         this.jogadorMaquina = jogadorMaquina;
     }
     
-    public String iniciarPartida(){
+    public Jogador iniciarPartida(){
         /* Loop que continua a partida enquanto nenhum jogador atingir 
         a pontuação necessária para a rodada acabar. */
         while (jogadorHumano.getRoundPoints() < PONTOS_PARA_VENCER &&
@@ -64,17 +64,11 @@ public class Partida {
         }
         Jogador vencedor = anunciarVencedor();
         
-        // Monta o placar final.
-        String placar =
-                jogadorHumano.getRoundPoints()
-                + " x "
-                + jogadorMaquina.getRoundPoints();
-        
         // Exibe o resultado da partida.
         ViewPartida.fim(vencedor, jogadorHumano);
         
-        // Retorna o placar pro JogoController inserir no histórico.
-        return placar;
+        // Retorna o vencedor para o JogoController registrar no histórico.
+        return vencedor;
     }
     
     // Determina qual jogador venceu a partida.   
