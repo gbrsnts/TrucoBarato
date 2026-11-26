@@ -5,6 +5,7 @@ import model.DAO.JogadorDAO;
 import model.DAO.RegistroJogador;
 import model.DAO.RegistroPartida;
 import java.util.Collection;
+import java.util.Optional;
 
 /**
  * Classe responsável pelo controle do menu do jogo.
@@ -27,9 +28,9 @@ public class MenuController {
    }
    
    // Inicia uma nova partida utilizando o perfil selecionado. 
+   // ifPresent só executa se houver perfil; jogoController::iniciarPartida é referência de método.
     public void iniciarPartida() {
-        RegistroJogador perfil = jogadorDAO.getPerfilSelecionado();
-        jogoController.iniciarPartida(perfil);
+        jogadorDAO.getPerfilSelecionado().ifPresent(jogoController::iniciarPartida);
     }
     
     // ===================================================
@@ -58,30 +59,28 @@ public class MenuController {
     
     
     // Define o perfil que será utilizado nas próximas operações.
-    public boolean selecionarPerfil(int id){
+    public boolean selecionarPerfil(Integer id){
         return jogadorDAO.selecionarPerfil(id);
     }
     
     // Remove o perfil de jogador e as partidas associadas a ele.
-    public boolean deletarPerfil(int id){
+    public boolean deletarPerfil(Integer id){
         historicoDAO.deletarById(id);
         return jogadorDAO.deletarPerfil(id);
     }
     
-    // Retorna o nome do perfil atualmente selecionado
-    // Em caso de nenhum perfil esteja selecionado, retorna null.
-    public String buscarNome() {
-        RegistroJogador perfil = jogadorDAO.getPerfilSelecionado();
-    return (perfil != null) ? perfil.getName() : null;
+    // Retorna o nome do perfil selecionado ou vazio se nenhum estiver selecionado.
+    public Optional<String> buscarNome() {
+       return jogadorDAO.getPerfilSelecionado().map(RegistroJogador::getName);
     }
     
     // Altera o nome de um jogador
-    public boolean alterarNomePerfil(int id, String novoNome){
+    public boolean alterarNomePerfil(Integer id, String novoNome){
         return jogadorDAO.atualizarNome(id, novoNome);
     }
     
     // Busca um jogador pelo seu ID.
-    public RegistroJogador buscarJogadorId(int id){
+    public Optional<RegistroJogador> buscarJogadorId(Integer id){
         return jogadorDAO.buscarPerfil(id);
     }
 }

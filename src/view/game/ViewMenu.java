@@ -5,6 +5,7 @@ import java.util.Collection;
 import model.DAO.RegistroJogador;
 import model.DAO.RegistroPartida;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import view.util.Input;
 
 /**
@@ -96,14 +97,15 @@ public class ViewMenu {
         
         // Percorre todos os registros de partida
         for (RegistroPartida h : historico) {
-            RegistroJogador jogador = controller.buscarJogadorId(
-            h.getJogadorId());
+            String nome = controller.buscarJogadorId(h.getJogadorId())
+                    .map(RegistroJogador::getName)
+                    .orElse("(perfil removido)");
             
             // Configura uma string de acord com o status da partida.
             String resultado = Boolean.TRUE.equals(h.getVenceu()) ? "VITORIA" : "DERROTA";
             
             System.out.println("[" + h.getPlayedAt().format(formatter)
-                    + "] " + jogador.getName()
+                    + "] " + nome + " "
                     + h.getPontosJogador() + " x " + h.getPontosMaquina()
                     + " Stuart - " + resultado);
         }
@@ -131,9 +133,9 @@ public class ViewMenu {
         
         int id = Input.lerInt("Digite o ID para deletar: ");
         
-        RegistroJogador perfil = controller.buscarJogadorId(id);
+        Optional<RegistroJogador> perfil = controller.buscarJogadorId(id);
         
-        if(perfil == null){
+        if(perfil.isEmpty()){
             System.out.println("ID invalido!");
             return;
         }
@@ -141,7 +143,7 @@ public class ViewMenu {
         
         char confirma = Input.lerChar(
                 "Deseja realmente deletar o perfil "
-                + perfil.getName() 
+                + perfil.get().getName() 
                 + " e seu historico? [S/N] ");
         
         if (confirma != 's') {
@@ -160,7 +162,7 @@ public class ViewMenu {
         int id = Input.lerInt("Digite o ID para selecionar: ");
         
         if (controller.selecionarPerfil(id)) {
-            System.out.println("Perfil " + controller.buscarNome() 
+            System.out.println("Perfil " + controller.buscarNome().orElse("")
                 + " selecionado!");
         } else {
             System.out.println("ID invalido!");
@@ -168,14 +170,12 @@ public class ViewMenu {
     }
     
     // Permite o usuário alterar o nome de um perfil.
-    public void alterarNomePerfil(){
+    private void alterarNomePerfil(){
         if(!listarPerfis()) return;
         
         int id = Input.lerInt("Digite o ID do perfil: ");
         
-        RegistroJogador perfil = controller.buscarJogadorId(id);
-        
-        if(perfil == null){
+        if(controller.buscarJogadorId(id).isEmpty()){
             System.out.println("ID invalido!");
             return;
         }
@@ -204,8 +204,7 @@ public class ViewMenu {
     
     // Inicia um nova partida utilizando o perfil atual selecionado.
     private void iniciarPartida(){
-        String nome = controller.buscarNome();
-        if (nome == null) {
+        if (controller.buscarNome().isEmpty()) {
             System.out.println("Selecione um perfil antes de jogar!");
             return;
         }

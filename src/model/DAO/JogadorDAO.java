@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  *  Classe responsável pelo gerencimento dos perfis de jogadores.
@@ -94,23 +95,23 @@ public class JogadorDAO implements Serializable {
     }
 
     // READ - Busca um perfil pelo seu ID(Chave).
-    public RegistroJogador buscarPerfil(Integer id){
-        return jogadores.get(id);
+    public Optional<RegistroJogador> buscarPerfil(Integer id){
+        return Optional.ofNullable(jogadores.get(id));
     }
     
     // UPDATE - Atualiza o nome do jogador
     public boolean atualizarNome(Integer id, String novoNome){
         
-        // Busca o jgoador no HashMap pelo ID
-        RegistroJogador jogador = jogadores.get(id);
+        // Busca o jogador no HashMap pelo ID
+        Optional<RegistroJogador> jogador = buscarPerfil(id);
         
         // Verifica se o jogador existe antes de atualizar
-        if (jogador == null){
+        if (jogador.isEmpty()){
             return false;
         }
         
         // Atualiza o atributo de nome do registro
-        jogador.setName(novoNome);
+        jogador.get().setName(novoNome);
         
         // Salva a alteração no arquivo.
         salvar();
@@ -138,7 +139,7 @@ public class JogadorDAO implements Serializable {
     }
 
     // SELECT - Define qual perfil será utilizado.
-    public boolean selecionarPerfil(int id){
+    public boolean selecionarPerfil(Integer id){
         // Verifica se o jogador existe
         if (!jogadores.containsKey(id))
             return false;
@@ -150,7 +151,8 @@ public class JogadorDAO implements Serializable {
     }
     
     // Informa o perfil atual selecionado.
-    public RegistroJogador getPerfilSelecionado(){
-        return jogadores.get(perfilSelecionadoId);
+    // Se perfilSelecionadoId for null, o map nem é executado e o resultado é vazio.
+    public Optional<RegistroJogador> getPerfilSelecionado(){
+        return Optional.ofNullable(perfilSelecionadoId).map(jogadores::get);
     }
 }
