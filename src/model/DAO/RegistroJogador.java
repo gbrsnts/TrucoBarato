@@ -9,38 +9,29 @@ import java.time.LocalDateTime;
  * 
  * @author gbrsnts
  */
-public class RegistroJogador implements Serializable{
+public class RegistroJogador implements Identificavel<Integer>, Serializable {
     
-    /* Atributo responsável  por controlar o próximo ID disponível.
-    Por ser compartilhado entre todos os objetos da classe é static, garantindo
+    /* Por ser compartilhado entre todos os objetos da classe é static, garantindo
     que cada jogador receba um valor único.
     */
     private static final long serialVersionUID = 1L;
-    private static int proximoId = 1;
     
     private Integer id;
     private LocalDateTime createdAt;
     private String name;
     
     public RegistroJogador(String name){
-        this.id = proximoId++;
         this.createdAt = LocalDateTime.now();
         this.name = name;
     }
-    
-    // Atualiza o contador global de ID.
-    public static void atualizarId(int novoId){
-        if(novoId > proximoId){
-            proximoId = novoId;
-        }
-    }
-    
+
     // Retorna o nome do jogador.
     public String getName(){
         return name;
     }    
     
     // Retornar o ID do jogador.
+    @Override
     public Integer getId(){
         return id;
     }
@@ -56,6 +47,12 @@ public class RegistroJogador implements Serializable{
             throw new IllegalArgumentException("Nome inválido");
         }
         this.name = name;
+    }
+    
+    // Define o ID do jogador (chamado pelo repositório ao salvar).
+    @Override
+    public void setId(Integer id){
+        this.id = id;
     }
     
     /* Retorna o ID e nome de cada jogador.

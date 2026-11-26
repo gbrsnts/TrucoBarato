@@ -17,86 +17,27 @@ import java.util.Optional;
  * @author gbrsnts
  */
 
-public class JogadorDAO implements Serializable {
-
-    private static final String ARQUIVO = "registros/jogador.dat";
-    private HashMap<Integer, RegistroJogador> jogadores;
+public class JogadorDAO extends RepositorioArquivo<RegistroJogador> {
     private Integer perfilSelecionadoId;
     
     // Cria uma instância de jogador e carrega os dados do arquivo.
     public JogadorDAO(){
-        carregar();
-    }
-    
-    // Carrega os dados dos jogador a partir do arquivo de persistência.
-    private void carregar(){
-        File arquivo = new File(ARQUIVO);
-        
-        // Valida se o arquivo existe, caso contrário inicializa um HashMap vazio.
-        if(!arquivo.exists()){
-            jogadores = new HashMap<>();
-            return;
-        }
-        try(ObjectInputStream in =
-            new ObjectInputStream(
-                new FileInputStream(arquivo))){
-            
-            // Recupera o HashMap serializado
-            jogadores = (HashMap<Integer, RegistroJogador>) in.readObject();
-            
-            int maiorId = 0;
-            
-            // Procura o maior ID já utilizado
-            for(RegistroJogador perfil : jogadores.values()){
-                if(perfil.getId() > maiorId){
-                    maiorId = perfil.getId();
-                }
-            }
-            
-            RegistroJogador.atualizarId(maiorId + 1);
-        } catch(Exception e){
-            // Em caso de falha, cria um HashMap vazio
-            jogadores = new HashMap<>();
-        }
-    }
-
-    // Salva todos os jogadores em arquivo utilizando serialização.
-    public void salvar(){
-       try(ObjectOutputStream out = 
-            new ObjectOutputStream(new FileOutputStream(ARQUIVO))){
-           
-            // Serializa e grava o HashMap completo.
-            out.writeObject(jogadores);
-            
-       } catch(IOException e){
-           System.out.println("Erro ao salvar jogadores.");
-       }
+        super("registros/jogador.dat");
     }
     
     // CREATE - Cria um perfil de jogador.
     public RegistroJogador criarRegistro(String nome){
-        
-        // Cria um novo perfil.
-        RegistroJogador registro = new RegistroJogador(nome);
-        
-        // Armazena utilizando o ID como chave do HashMap.
-        jogadores.put(registro.getId(), registro);
-        
-        // Salva a alteração no arquivo.
-        salvar();
-        
-        // Retorna o jogador criado.
-        return registro;
+        return salvar(new RegistroJogador(nome));
     }
     
     // READ - Retorna todos os perfis de jogadores já cadastrados.
     public Collection<RegistroJogador> listarPerfis(){
-        return jogadores.values();
+        return listarTodos();
     }
 
-    // READ - Busca um perfil pelo seu ID(Chave).
+    // READ - Busca um perfil pelo ID.
     public Optional<RegistroJogador> buscarPerfil(Integer id){
-        return Optional.ofNullable(jogadores.get(id));
+        return buscarPorId(id);
     }
     
     // UPDATE - Atualiza o nome do jogador
@@ -114,8 +55,7 @@ public class JogadorDAO implements Serializable {
         jogador.get().setName(novoNome);
         
         // Salva a alteração no arquivo.
-        salvar();
-        
+        salvar(jogador.get());        
         return true;
     }
 
@@ -123,36 +63,32 @@ public class JogadorDAO implements Serializable {
     public boolean deletarPerfil(Integer id) {
         
         // Remove o jogador.
-        RegistroJogador removido = jogadores.remove(id);
+        boolean removido = removerPorId(id);
         
         // Se o perfil removido era o selecionado
-        // Também remove a seleção atual
+        // Também limpa a seleção atual
         if(Objects.equals(id, perfilSelecionadoId)){
             perfilSelecionadoId = null;
         }
         
-        // Salva as alterações
-        salvar();
-        
-        // Verifica se houve remoção
-        return removido != null;
+        return removido;
     }
 
     // SELECT - Define qual perfil será utilizado.
     public boolean selecionarPerfil(Integer id){
         // Verifica se o jogador existe
-        if (!jogadores.containsKey(id))
+        if (buscarPorId(id).isEmpty()) {
             return false;
+        }
         
         // Define o perfil ativo.
         perfilSelecionadoId = id;
-        
         return true;
     }
     
     // Informa o perfil atual selecionado.
-    // Se perfilSelecionadoId for null, o map nem é executado e o resultado é vazio.
+    // buscarPorId já devolve Optional
     public Optional<RegistroJogador> getPerfilSelecionado(){
-        return Optional.ofNullable(perfilSelecionadoId).map(jogadores::get);
+        return Optional.ofNullable(perfilSelecionadoId).flatMap(this::buscarPorId);
     }
 }

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
  * 
  * @author gbrsnts
  */
-public class RegistroPartida implements Serializable{
+public class RegistroPartida implements Identificavel<Integer>, Serializable {
     
     /* Atributo responsável  por controlar o próximo ID disponível.
     Por ser compartilhado entre todos os objetos da classe é static, garantindo
@@ -44,8 +44,15 @@ public class RegistroPartida implements Serializable{
     }
     
     // Retornar o ID da partida
+    @Override
     public Integer getId(){
         return id;
+    }
+    
+    // Define o ID da partida
+    @Override
+    public void setId(Integer id){
+        this.id = id;
     }
     
     // Retorna o ID do jogador da partida.
@@ -72,10 +79,6 @@ public class RegistroPartida implements Serializable{
     // Retorna data e hora em que a partida foi realizada.
     public LocalDateTime getPlayedAt(){
         return playedAt;
-    }
-    
-    public void setId(Integer id) { 
-        this.id = id; 
     }
     
     /* Retorna o ID, placar e data/hora da partida.
