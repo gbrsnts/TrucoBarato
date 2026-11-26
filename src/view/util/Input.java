@@ -1,6 +1,8 @@
 package view.util;
 
 import java.util.Scanner;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * Classe utilitária para leitura e validação de entradas do usuário.
@@ -10,52 +12,16 @@ import java.util.Scanner;
 public class Input {
     private static Scanner scanner = new Scanner(System.in);
     
-    // Valida se é um número inteiro válido.
-    public static int lerInt(String mensagem){
-        while(true){
-            System.out.print(mensagem);
-            String entrada = scanner.nextLine().trim();
-            
-            if(entrada.isEmpty()) {
-                System.out.println("Entrada vazia! Digite um numero.");
-                continue;
-            }
-            
-            try{
-                return Integer.parseInt(entrada);
-            } catch(NumberFormatException e){
-                System.out.println("Entrada invalida! Digite um numero.");
-            }
-        }
-    }
-    
-    // Valida se é um CHAR válido entre 'S' ou 'N'.
-    public static char lerChar(String mensagem){
+    /* Método genérico de leitura.
+    * Lê uma linha, converte para o tipo T com o conversor.
+    * Confere com o valido e repete até a entrada ser aceita.
+    */
+    public static <T> T ler(String mensagem,
+            Function<String, T> conversor,
+            Predicate<T> valido,
+            String mensagemErro){
         while(true){
             System.out.println(mensagem);
-            
-            String entrada = scanner.nextLine().trim();
-            
-            if(entrada.isEmpty()){
-                System.out.println("Entrada vazia! Digite 'S' ou 'N'.");
-                continue;
-            }
-            
-            char c = Character.toLowerCase(entrada.charAt(0));
-            
-            if (c == 's' || c == 'n'){
-                return c;
-            }
-            
-            System.out.println("Entrada inválida! Digite apenas 'S' ou 'N'.");
-        }
-    }
-    
-    // Valida se é um String válido e não uma entrada vazia.
-    public static String lerString(String mensagem){
-        while(true){
-            System.out.print(mensagem);
-            
             String entrada = scanner.nextLine().trim();
             
             if(entrada.isEmpty()){
@@ -63,8 +29,33 @@ public class Input {
                 continue;
             }
             
-            return entrada;
+            try{
+                T valor = conversor.apply(entrada);
+                
+                if(valido.test(valor)){
+                    return valor;
+                }
+            } catch(IllegalArgumentException e){
+                
+            }
+            System.out.println(mensagemErro);
         }
+    }
+    
+    // Lê um número inteiro.
+    public static int lerInt(String mensagem){
+        return ler(mensagem, Integer::parseInt, n-> true, "Entrada invalida! Digite um numero.");
+    }
+    
+    // Lê 'S' ou 'N' e devolve sempre em minúsculo.
+    public static char lerChar(String mensagem){
+        return ler(mensagem, s-> Character.toLowerCase(s.charAt(0)), c-> c == 's' || c == 'n',
+                "Entrada invalida! Digite apenas 'S' ou 'N'.");
+    }
+    
+    // Lê um texto não vazio
+    public static String lerString(String mensagem){
+        return ler(mensagem, s-> s, s-> true, "Entrada invalida!");
     }
     
     public static void linha() {
