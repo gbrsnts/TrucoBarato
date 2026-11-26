@@ -11,12 +11,7 @@ import java.time.LocalDateTime;
  */
 public class RegistroPartida implements Identificavel<Integer>, Serializable {
     
-    /* Atributo responsável  por controlar o próximo ID disponível.
-    Por ser compartilhado entre todos os objetos da classe é static, garantindo
-    que cada partida receba um valor único.
-    */
     private static final long serialVersionUID = 1L;
-    private static int proximoId = 1;
     
     private Integer id;
     private Integer jogadorId;
@@ -28,19 +23,11 @@ public class RegistroPartida implements Identificavel<Integer>, Serializable {
     
     public RegistroPartida(RegistroJogador perfil, Integer pontosJogador,
                            Integer pontosMaquina, Boolean venceu){
-        this.id = proximoId++;
         this.jogadorId = perfil.getId();
         this.pontosJogador = pontosJogador;
         this.pontosMaquina = pontosMaquina;
         this.venceu = venceu;
         this.playedAt = LocalDateTime.now();
-    }
-    
-    // Atualiza o contador global de ID.
-    public static void atualizarId(int novoId){
-        if(novoId > proximoId){
-            proximoId = novoId;
-        }
     }
     
     // Retornar o ID da partida
