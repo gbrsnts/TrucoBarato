@@ -78,6 +78,7 @@ public class ViewMenu {
         System.out.println("4. Em caso de empate, vence o jogador que iniciou o turno.");    
         System.out.println("5. Quem vencer 2 turnos ganha a rodada.");
         System.out.println("6. Quem vencer 5 rodadas vence a partida.");
+        System.out.println("7. Para desistir, digite 0 na escolha de carta.");
         System.out.println("Boa sorte e divirta-se!\n");
     }
     

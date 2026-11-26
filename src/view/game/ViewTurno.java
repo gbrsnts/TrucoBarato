@@ -9,6 +9,8 @@ import view.util.Input;
  * @author gbrsnts
  */
 public class ViewTurno {
+    // Valor devolvido por escolherCarta quando o jogador decide desistir.
+    public static final int DESISTIR = -1;
     
     // Exibe a carta escolhida pelo jogador.
     public static void mostrarJogada(Jogador jogador, Carta carta) {
@@ -26,7 +28,16 @@ public class ViewTurno {
     public static int escolherCarta(Jogador jogador) {
         while (true) {
             mostrarMao(jogador);            
+            System.out.println("0 - Desistir da partida");
             int escolha = Input.lerInt("Escolha uma carta: ");
+            
+            if(escolha == 0){
+                char confirma = Input.lerChar("Deseja realmente desistir? [S/N] ");
+                if (confirma == 's'){
+                    return DESISTIR;
+                }
+                continue;
+            }
             
             if (escolha >= 1 && escolha <= jogador.getMao().size()) {
                 return escolha - 1;

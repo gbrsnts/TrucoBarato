@@ -79,4 +79,13 @@ public class Partida {
         return jogadorMaquina;
     }
     
+    
+    // Exception para quando o jogador desiste no meio da partida.
+    public static class DesistenciaException extends RuntimeException {
+        private static final long serialVersionUID = 1L;
+        
+        public DesistenciaException() {
+            super("O jogador desistiu da partida.");
+        }
+    }
 }

@@ -42,4 +42,9 @@ public class ViewPartida {
         + " ganhou a rodada.\u001B[0m");
     }
     
+    // Exibe a mensagem de desistência.
+    public static void desistencia(Jogador humano){
+        System.out.println(humano.getNome() + " desistiu da partida.");
+    }
+    
 }

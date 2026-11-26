@@ -51,6 +51,11 @@ public class Turno {
             // A view solicita que o jogador escolha uma carta.
             int indice = ViewTurno.escolherCarta(jogador);
             
+            // Interrompe a partida inteira
+            if (indice == ViewTurno.DESISTIR){
+                throw new Partida.DesistenciaException();
+            }
+            
             // Retorna a carta escolhida pelo jogador humano.
             return jogador.escolherCarta(indice);
         }

@@ -6,6 +6,7 @@ import model.jogador.Jogador;
 import model.jogador.JogadorHumano;
 import model.jogador.JogadorMaquina;
 import model.game.Partida;
+import view.game.ViewPartida;
 
 /**
  * Classe responsável pelo controle e gerenciamento das partidas.
@@ -36,7 +37,13 @@ public class JogoController {
         // Cria uma nova partida contendo os dois jogadores.
         Partida partida = new Partida(humano, maquina);
         
-        Jogador vencedor = partida.iniciarPartida();
+        Jogador vencedor;
+        try {
+            vencedor = partida.iniciarPartida();
+        } catch (Partida.DesistenciaException e){
+            ViewPartida.desistencia(humano);
+            return;
+        }
         
         Integer pontosJogador = humano.getRoundPoints();
         Integer pontosMaquina = maquina.getRoundPoints();
