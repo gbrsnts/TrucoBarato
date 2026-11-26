@@ -17,7 +17,7 @@ public class RegistroPartida implements Identificavel<Integer>, Serializable {
     private Integer jogadorId;
     private Integer pontosJogador;
     private Integer pontosMaquina;
-    private Boolean venceu;    
+    private Boolean venceu;
     private LocalDateTime playedAt;
     
     
