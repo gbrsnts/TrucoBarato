@@ -6,6 +6,9 @@ import model.DAO.RegistroJogador;
 import model.DAO.RegistroPartida;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import view.util.Input;
 
 /**
@@ -96,8 +99,23 @@ public class ViewMenu {
         
         System.out.println("\n=== Historico TrucoBarato! ===");
         
+        // Copia para uma lista, que pode ser ordenada.
+        List<RegistroPartida> ordenado = new ArrayList<>(historico);
+        
+        /* Classe anônima
+        * Implementa Comparator
+        * Ordena da partida mais recente para a mais antiga.
+        */
+        
+        ordenado.sort(new Comparator<RegistroPartida>() {
+            @Override
+            public int compare(RegistroPartida a, RegistroPartida b) {
+                return b.getPlayedAt().compareTo(a.getPlayedAt());
+            }
+        });
+        
         // Percorre todos os registros de partida
-        for (RegistroPartida h : historico) {
+        for (RegistroPartida h : ordenado) {
             String nome = controller.buscarJogadorId(h.getJogadorId())
                     .map(RegistroJogador::getName)
                     .orElse("(perfil removido)");

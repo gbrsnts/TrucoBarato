@@ -2,6 +2,7 @@ package model.jogador;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 import model.carta.Carta;
 
 /**
@@ -15,7 +16,46 @@ public abstract class Jogador {
      * Array list para ser a "mão" do jogador, com suas respectivas cartas.
      * Variável de pontosPartida para atribuir um placar ao jogo
      */
-    private List<Carta> mao = new ArrayList<>();
+    
+    public class Mao{
+        private final List<Carta> cartas = new ArrayList<>();
+        
+        // Adiciona uma carta à mão;
+        public void receber(Carta carta){
+            cartas.add(carta);
+        }
+        
+        // Remove e retorna a carta na posição informada.
+        public Carta remover(int indice){
+            return cartas.remove(indice);
+        }
+        
+        // Retorna a quantidade de cartas na mão.
+        public int tamanho(){
+            return cartas.size();
+        }
+        
+        // Remove todas as cartas.
+        public void limpar(){
+            cartas.clear();
+        }
+        
+        
+        // Retorna as cartas apenas para leitura.
+        public List<Carta> getCartas(){
+            return Collections.unmodifiableList(cartas);
+        }
+        
+        // Jogador.this acessa o objeto Jogador "dono" dessa mão.
+        @Override
+        public String toString(){
+            return "Mao de " + Jogador.this.nome + ": " + cartas;
+        }
+        
+    }
+    
+    // A mão é criada junto com o jogador (new Mao() usa o Jogador atual).
+    private final Mao mao = new Mao();
     private int roundPoints;
     private int turnPoints;
     private String nome;
@@ -26,27 +66,27 @@ public abstract class Jogador {
     
     // Adiciona uma carta à mão do jogador.
     public void receberCarta(Carta carta){
-        mao.add(carta);
+        mao.receber(carta);
     }
     
     // Retorna todas as cartas que o jogador possui na mão.
     public List<Carta> getMao(){
-        return mao;
+        return mao.getCartas();
     }
     
     // Remove a carta no index passado.
     public Carta removerCarta(int index){
-        return mao.remove(index);
+        return mao.remover(index);
     }
     
     // Retorna quantas cartas há na mão do jogador.
     public int tamanhoMao(){
-        return mao.size();
+        return mao.tamanho();
     }
     
     // Remove todas as cartas da mão do jogador.
     public void limparMao(){
-        mao.clear();
+        mao.limpar();
     }
     
     // Retorna pontuação de rodadas dentro da partida.
@@ -76,7 +116,7 @@ public abstract class Jogador {
     }
 
     // Define o nome do jogador com validação.
-    public void setNome(String nome) {
+    public final void setNome(String nome) {
         
         // Verifica se o nome do jogador não está nulo ou em branco
         if(nome == null || nome.isBlank()){

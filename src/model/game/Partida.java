@@ -24,7 +24,7 @@ public class Partida {
         this.jogadorMaquina = jogadorMaquina;
     }
     
-    public Jogador iniciarPartida(){
+    public Resultado iniciarPartida(){
         /* Loop que continua a partida enquanto nenhum jogador atingir 
         a pontuação necessária para a rodada acabar. */
         while (jogadorHumano.getRoundPoints() < PONTOS_PARA_VENCER &&
@@ -67,8 +67,11 @@ public class Partida {
         // Exibe o resultado da partida.
         ViewPartida.fim(vencedor, jogadorHumano);
         
-        // Retorna o vencedor para o JogoController registrar no histórico.
-        return vencedor;
+        // Retorna o resultado completo para o JogoController registrar no histórico.
+        return new Resultado(
+                vencedor == jogadorHumano,
+                jogadorHumano.getRoundPoints(),
+                jogadorMaquina.getRoundPoints());
     }
     
     // Determina qual jogador venceu a partida.   
@@ -77,6 +80,36 @@ public class Partida {
             return jogadorHumano;
         }
         return jogadorMaquina;
+    }
+    
+    /* Classe estática aninhada
+    * Guarda o resultado final de uma partida
+    * Depois da classse criada, o "Resultado" é independente.
+    */
+    
+    public static class Resultado{
+        private final Boolean humanoVenceu;
+        private final Integer pontosHumano;
+        private final Integer pontosMaquina;
+        
+        public Resultado(Boolean humanoVenceu, Integer pontosHumano, Integer pontosMaquina) {
+            this.humanoVenceu = humanoVenceu;
+            this.pontosHumano = pontosHumano;
+            this.pontosMaquina = pontosMaquina;
+        }
+        
+        public Boolean getHumanoVenceu(){
+            return humanoVenceu;
+        }
+        
+        public Integer getPontosHumano(){
+            return pontosHumano;
+        }
+        
+        public Integer getPontosMaquina(){
+            return pontosMaquina;
+        }
+        
     }
     
     

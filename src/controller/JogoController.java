@@ -2,7 +2,6 @@ package controller;
 
 import model.DAO.HistoricoDAO;
 import model.DAO.RegistroJogador;
-import model.jogador.Jogador;
 import model.jogador.JogadorHumano;
 import model.jogador.JogadorMaquina;
 import model.game.Partida;
@@ -37,21 +36,16 @@ public class JogoController {
         // Cria uma nova partida contendo os dois jogadores.
         Partida partida = new Partida(humano, maquina);
         
-        Jogador vencedor;
-        try {
-            vencedor = partida.iniciarPartida();
+        Partida.Resultado resultado;
+        
+        try{
+            resultado = partida.iniciarPartida();
         } catch (Partida.DesistenciaException e){
             ViewPartida.desistencia(humano);
             return;
         }
         
-        Integer pontosJogador = humano.getRoundPoints();
-        Integer pontosMaquina = maquina.getRoundPoints();
-        Boolean venceu = (vencedor == humano);
-        
-        /* Armazena o resultado da partida no histórico.
-        Associando o perfil de um jogador em cada partida. */
-        historicoDAO.adicionar(perfil, pontosJogador, pontosMaquina, venceu);
+        historicoDAO.adicionar(perfil, resultado.getPontosHumano(), resultado.getPontosMaquina(), resultado.getHumanoVenceu());
     }
     
 }
