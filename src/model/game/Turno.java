@@ -4,6 +4,7 @@ import model.carta.Carta;
 import model.jogador.Jogador;
 import model.jogador.JogadorHumano;
 import view.game.ViewTurno;
+import java.util.Comparator;
 
 /**
  * Classe responsável pela lógica de cada turno.
@@ -15,6 +16,9 @@ public class Turno {
     // Os jogadores são apenas referenciados no turno, não pertencem a ele.
     private Jogador primeiro;
     private Jogador segundo;
+    
+    // Comparator a partir de uma referência de método
+    private static final Comparator<Carta> POR_VALOR = Comparator.comparingInt(Carta::getValor);
     
     public Turno(Jogador primeiro, Jogador segundo){
         this.primeiro = primeiro;
@@ -33,12 +37,11 @@ public class Turno {
         ViewTurno.mostrarJogada(segundo, carta2);
         
         // Realiza a comparação entre as cartas jogadas
-        if (carta1.getValor() > carta2.getValor()) return primeiro;
-        if (carta2.getValor() > carta1.getValor()) return segundo;
-
+        int comparacao = POR_VALOR.compare(carta1, carta2);
+        
         // Regra de desempate: caso ambas cartas tenha o mesmo valor,
         // O primeiro a jogar a carta será o vencedor.
-        return primeiro;
+        return (comparacao >= 0) ? primeiro : segundo;
     }
     
     /* Executa a jogada de cada jogador.

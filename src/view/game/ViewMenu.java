@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 import view.util.Input;
 
 /**
@@ -114,21 +115,22 @@ public class ViewMenu {
             }
         });
         
-        // Percorre todos os registros de partida
-        for (RegistroPartida h : ordenado) {
+        // Function: recebe um RegistroPartida e devolve a linha formatada.
+        Function<RegistroPartida, String> formatar = h -> {
             String nome = controller.buscarJogadorId(h.getJogadorId())
                     .map(RegistroJogador::getName)
                     .orElse("(perfil removido)");
             
-            // Configura uma string de acord com o status da partida.
             String resultado = Boolean.TRUE.equals(h.getVenceu()) ? "VITORIA" : "DERROTA";
             
-            System.out.println("[" + h.getPlayedAt().format(formatter)
-                    + "] " + nome + " "
+            return "[" + h.getPlayedAt().format(formatter) + "] "
+                    + nome + " "
                     + h.getPontosJogador() + " x " + h.getPontosMaquina()
-                    + " Stuart - " + resultado);
-        }
+                    + " Stuart - " + resultado;
+        };
         
+        // forEach recebe um Consumer: para cada partida, formata e imprime.
+        ordenado.forEach(h -> System.out.println(formatar.apply(h)));
     }
     
     // Exibe todos os perfis cadastrados no sistema.
