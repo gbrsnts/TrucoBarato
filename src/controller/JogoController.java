@@ -1,7 +1,7 @@
 package controller;
 
 import model.DAO.HistoricoDAO;
-import model.DAO.RegistroJogador;
+import model.entity.RegistroJogador;
 import model.jogador.JogadorHumano;
 import model.jogador.JogadorMaquina;
 import model.game.Partida;

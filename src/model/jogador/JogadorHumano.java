@@ -1,6 +1,6 @@
 package model.jogador;
 
-import model.DAO.RegistroJogador;
+import model.entity.RegistroJogador;
 import model.carta.Carta;
 
 /**

@@ -1,4 +1,6 @@
-package model.DAO;
+package model.entity;
+
+
 
 /**
  * 

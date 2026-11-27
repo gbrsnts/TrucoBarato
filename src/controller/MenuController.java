@@ -2,8 +2,8 @@ package controller;
 
 import model.DAO.HistoricoDAO;
 import model.DAO.JogadorDAO;
-import model.DAO.RegistroJogador;
-import model.DAO.RegistroPartida;
+import model.entity.RegistroJogador;
+import model.entity.RegistroPartida;
 import java.util.Collection;
 import java.util.Optional;
 

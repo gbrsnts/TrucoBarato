@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
+import model.entity.Identificavel;
 
 /**
  * Implementação genérica de Repositorio que persiste os dados em arquivo

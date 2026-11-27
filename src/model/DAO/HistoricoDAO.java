@@ -1,5 +1,7 @@
 package model.DAO;
 
+import model.entity.RegistroPartida;
+import model.entity.RegistroJogador;
 import java.util.Collection;
 import java.util.Objects;
 

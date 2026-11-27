@@ -1,4 +1,4 @@
-package model.DAO;
+package model.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

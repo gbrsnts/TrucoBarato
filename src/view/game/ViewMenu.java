@@ -2,8 +2,8 @@ package view.game;
 
 import controller.MenuController;
 import java.util.Collection;
-import model.DAO.RegistroJogador;
-import model.DAO.RegistroPartida;
+import model.entity.RegistroJogador;
+import model.entity.RegistroPartida;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ArrayList;

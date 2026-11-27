@@ -1,5 +1,6 @@
-package model.DAO;
+package model.entity;
 
+import model.entity.RegistroJogador;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 

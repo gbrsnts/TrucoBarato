@@ -1,8 +1,6 @@
 package model.jogador;
 
 import java.util.Random;
-import java.util.List;
-import java.util.function.Function;
 import model.carta.Carta;
 
 /**

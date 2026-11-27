@@ -1,5 +1,6 @@
 package model.DAO;
 
+import model.entity.RegistroJogador;
 import java.io.*;
 import java.util.Collection;
 import java.util.HashMap;
