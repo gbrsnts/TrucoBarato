@@ -11,14 +11,15 @@ import java.time.LocalDateTime;
  */
 public class RegistroJogador implements Identificavel<Integer>, Serializable {
     
-    /* Por ser compartilhado entre todos os objetos da classe é static, garantindo
-    que cada jogador receba um valor único.
-    */
+    // Identificador da versão da classe para compatibilidade na serialização.
     private static final long serialVersionUID = 1L;
     
     private Integer id;
     private LocalDateTime createdAt;
     private String name;
+    
+    protected RegistroJogador(){
+    }
     
     public RegistroJogador(String name){
         this.createdAt = LocalDateTime.now();
@@ -53,6 +54,20 @@ public class RegistroJogador implements Identificavel<Integer>, Serializable {
     @Override
     public void setId(Integer id){
         this.id = id;
+    }
+    
+    // Caso os perfis tenham o mesmo ID são considerados iguais.
+    @Override
+    public boolean equals(Object o){
+        if (this == o) return true;
+        if (!(o instanceof RegistroJogador outro)) return false;
+        return id != null && id.equals(outro.id);
+    }
+       
+    // Valor de hashCode é fixo por classe
+    @Override
+    public int hashCode(){    
+        return getClass().hashCode();
     }
     
     /* Retorna o ID e nome de cada jogador.
