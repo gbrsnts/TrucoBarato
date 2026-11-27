@@ -50,16 +50,13 @@ public abstract class RepositorioArquivo<T extends Identificavel<Integer> & Seri
         }
     }
 
-    // Gera o próximo ID disponível (maior ID existente + 1).
-    // Simula o auto incremento que o banco fará na fase 5.
+    // Gera o próximo ID disponível.
     private Integer proximoId() {
-        int maior = 0;
-        for (Integer id : dados.keySet()) {
-            if (id > maior) {
-                maior = id;
-            }
-        }
-        return maior + 1;
+        // Converte o ID para int e pega o maior.
+        return dados.keySet().stream()
+                .mapToInt(Integer::intValue)
+                .max()
+                .orElse(0) + 1;
     }
 
     @Override

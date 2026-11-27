@@ -3,6 +3,8 @@ package model.carta;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 import model.jogador.Jogador;
 
 /**
@@ -21,15 +23,14 @@ public class Baralho {
         embaralhar();
     }
     
-    /* Gera todas as cartas possível do baralho.
-     * Percorrendo todos os naipes e valores, 
-     * realizando uma combinação pra cada carta. */
+    /* Flatmap reúne todos os possíveis resultados de todos os naipes.
+     * Map combina cada valor possível, criando um objeto Carta.
+     * ToCollection coloca todas as cartas em um ArrayList */
     private void montarBaralho(){
-        for(Naipe naipe : Naipe.values()){
-            for(ValorCarta valor : ValorCarta.values()){
-                cartas.add(new Carta(valor, naipe));
-            }
-        }
+        cartas = Arrays.stream(Naipe.values())
+                .flatMap(naipe -> Arrays.stream(ValorCarta.values())
+                .map(valor -> new Carta(valor, naipe)))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
     
     // Embaralha utilizando o método shuffle de collection.

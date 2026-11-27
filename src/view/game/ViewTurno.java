@@ -2,6 +2,7 @@ package view.game;
 import model.carta.Carta;
 import model.jogador.Jogador;
 import view.util.Input;
+import java.util.stream.IntStream;
 
 /**
  * Classe responsável pelos outputs da classe "turno".
@@ -19,9 +20,8 @@ public class ViewTurno {
     
     // Exibe todas cartas ainda disponíveis na mão do jogador
     public static void mostrarMao(Jogador jogador){
-        for (int i = 0; i < jogador.getMao().size(); i++) {
-            System.out.println((i + 1) + " - " + jogador.getMao().get(i));
-        }
+        IntStream.range(0, jogador.getMao().size())
+                .forEach(i -> System.out.println((i + 1) + " - " + jogador.getMao().get(i)));
     }
     
     // Permite que o jogador escolha uma carta e valida a oppção escolhida
